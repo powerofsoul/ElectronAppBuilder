@@ -1,5 +1,7 @@
 language: node_js
 before_script:
   - npm install
-  - npm run compile
 script: npm run package
+addons:
+  artifacts:
+    working_dir: out/installers

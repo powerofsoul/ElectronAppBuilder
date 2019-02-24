@@ -5,23 +5,33 @@ module.exports = function(grunt) {
         main: {
           files: [
             {expand: true, cwd:"src/", src: ['**/*.html'], dest: 'dist/'},
-          ],
+            {expand: true, src: ['package.json'], dest: 'dist/'},
+          ]
         },
       },
-      electron: {
-		macosBuild: {
-			options: {
-                    name: 'App Builder',
-                    dir: 'src',
-                    out: 'out',
-                    version: '0.0.1',
-                    platform: 'linux',
-                    arch: 'x64'
-			    }
-		    }
-	    }
+      ts: {
+        default : {
+          tsconfig: './tsconfig.json'
+        }
+      },
+      shell:{
+        start:{
+            command:"npm start"
+        },
+      },
+      watch: {
+        scripts: {
+          files: ['src/**/*'],
+          tasks: ['copy', "ts", "shell:start"],
+          options: {
+            spawn: false,
+          },
+        },
+      }
     });
   
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-electron');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-ts');
+    grunt.loadNpmTasks('grunt-shell');
 };
