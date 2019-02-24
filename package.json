@@ -4,7 +4,8 @@
   "description": "Lucrare Licenta CTI UGAL 2019 Florin Munteanu",
   "main": "./src/main.js",
   "scripts": {
-    "start" :"node ."
+    "start": "electron dist/App.js",
+    "compile": "tsc"
   },
   "keywords": [
     "licenta",
@@ -12,5 +13,10 @@
     "cti"
   ],
   "author": "Florin Munteanu",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.0.5",
+    "npx": "^10.2.0",
+    "typescript": "^3.3.3333"
+  }
 }
