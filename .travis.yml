@@ -5,5 +5,8 @@ before_script:
   - npm install
 script: npm run package
 addons:
+  apt:
+    packages:
+      - fakeroot
   artifacts:
     working_dir: out/installers
