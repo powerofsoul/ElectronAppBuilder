@@ -8,5 +8,3 @@ addons:
   apt:
     packages:
       - fakeroot
-  artifacts:
-    working_dir: out/installers
