@@ -18,7 +18,7 @@ export default class Main {
     private static onReady() {
         Main.mainWindow = new Main.BrowserWindow({ width: 800, height: 600 });
         Main.mainWindow
-            .loadURL('file://' + __dirname + '/index.html');
+            .loadURL('file://' + __dirname + '/Views/index.html');
         Main.mainWindow.on('closed', Main.onClose);
     }
 
