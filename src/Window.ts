@@ -25,7 +25,7 @@ export class Window{
             })
         });
        
-        //Injecting ViewModel intro current view
+        //Injecting ViewModel into current view
         win.webContents.executeJavaScript(`
             let $ = require('jquery')
             var electron = require('electron');
