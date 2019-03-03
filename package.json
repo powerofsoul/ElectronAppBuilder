@@ -5,10 +5,11 @@
   "main": "App.js",
   "scripts": {
     "start": "electron dist/App.js",
+    "cs": "npm run compile && npm start",
     "compile": "grunt copy && tsc",
-    "compile-electron":"electron-packager ./dist/ app-builder --platform linux --arch x64 --out ./out --overwrite",
-    "create-deb":"electron-installer-debian --src ./out/app-builder-linux-x64 --dest ./out/installers/ --arch amd64",
-    "package":"npm run compile && npm run compile-electron && npm run create-deb",
+    "compile-electron": "electron-packager ./dist/ app-builder --platform linux --arch x64 --out ./out --overwrite",
+    "create-deb": "electron-installer-debian --src ./out/app-builder-linux-x64 --dest ./out/installers/ --arch amd64",
+    "package": "npm run compile && npm run compile-electron && npm run create-deb",
     "watch": "grunt watch"
   },
   "keywords": [
@@ -20,14 +21,17 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^4.0.5",
-    "electron-packager":"^13.1.0",
+    "electron-packager": "^13.1.0",
     "electron-installer-debian": "^1.1.1",
     "grunt": "^1.0.3",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-ts": "^6.0.0-beta.22",
-    "grunt-shell":"^3.0.1",
+    "grunt-shell": "^3.0.1",
     "npx": "^10.2.0",
     "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1"
   }
 }

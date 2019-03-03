@@ -1,4 +1,8 @@
-import { app, BrowserWindow } from 'electron';
-import Main from './Main';
+import { app } from 'electron';
+import { MainPageView } from "./MainPage/MainPage";
 
-Main.main(app, BrowserWindow);
+app.on("ready", ()=>{
+    var mainWindow = new MainPageView();
+    mainWindow.show();
+});
+
