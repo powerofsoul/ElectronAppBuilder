@@ -1,18 +1,13 @@
 import { ViewModel } from "../ViewModel";
+const fs = require('fs');
+var nmd = require('nano-markdown');
 
 export class MainWindowViewModel extends ViewModel{
-    private _number1: number;
-    public get number1():number{
-        return this._number1;
-    }
-    
-    public set number1(value){
-        this._number1 = value;
-        this.trigger('number1');
-    }
+    public documentation:string;
 
-    public calcSum(){
-        console.log(this.number1);
-        this.number1 +=1000;
+    constructor() {
+        super();
+        var documentationMarkdown = fs.readFileSync(`${__dirname}/../documentation.md`,'utf-8');
+        this.documentation = nmd(documentationMarkdown);
     }
 }

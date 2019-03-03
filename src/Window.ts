@@ -34,20 +34,27 @@ export class Window{
             //Make each field update viewmodel variables
             $('[bind]').each(function(){
                 let attr = $(this).attr('bind');
-               
-                $(this).on('change', ()=>{
-                    debugger
-                    let value = $(this).val();
-                    if(!isNaN(value)){
-                        value = parseInt(value);
-                    }
-
-                    viewModel[attr] = value;
-                }); 
-
-                viewModel.registerListener(attr, ()=>{
+                
+                if($(this).is('input')){
                     $(this).val(viewModel[attr]);
-                })
+                    $(this).on('change', ()=>{
+                        let value = $(this).val();
+                        if(!isNaN(value)){
+                            value = parseInt(value);
+                        }
+
+                        viewModel[attr] = value;
+                    }); 
+
+                    viewModel.registerListener(attr, ()=>{
+                        $(this).val(viewModel[attr]);
+                    })
+                }
+                else if($(this).is("span") || $(this).is("p")){
+                    $(this).text(viewModel[attr]);
+                }else{
+                    $(this).html(viewModel[attr]);
+                }
             })
         `);
     }
