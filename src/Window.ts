@@ -1,5 +1,7 @@
 import { BrowserWindow } from 'electron';
+const fs = require("fs");
 
+import * as config from "./config.json";
 
 export class Window{
     private _viewPath: string;
@@ -13,6 +15,16 @@ export class Window{
         win.viewModel = this._model;
         win.loadURL(this._viewPath);
         
+
+        win.webContents.on('did-finish-load', function() {
+            config.styles.forEach(css => {
+                console.log(`${__dirname}/${css}`);
+                fs.readFile(`${__dirname}/${css}`, "utf-8", function(error, data) {
+                    win.webContents.insertCSS(data)
+                })
+            })
+        });
+       
         //Injecting ViewModel intro current view
         win.webContents.executeJavaScript(`
             let $ = require('jquery')
