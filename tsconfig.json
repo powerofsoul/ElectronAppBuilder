@@ -12,7 +12,8 @@
     "outDir": "dist",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "jsx": "react"
   },
   "include": [
     "src/**/*"

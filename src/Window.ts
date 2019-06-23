@@ -1,47 +1,16 @@
 import { BrowserWindow } from 'electron';
 const fs = require("fs");
-
 import config from "./config.js";
+import * as React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 export class Window{
-    private _viewPath: string;
+    private component: string;
     private _model;
-    constructor(viewPath: string, model) {
-        this._viewPath = `file://${__dirname}/${viewPath}`;
-        this._model = model;
+
+    constructor(component: React.Component) {
+        this.component = component;
     }
-
-    loadViewModel = `
-        let $ = require('jquery')
-        var electron = require('electron');
-        const viewModel = electron.remote.getCurrentWindow().viewModel;
-
-        //Make each field update viewmodel variables
-        $('[bind]').each(function(){
-            let attr = $(this).attr('bind');
-            
-            if($(this).is('input')){
-                $(this).val(viewModel[attr]);
-                $(this).on('change', ()=>{
-                    let value = $(this).val();
-                    if(!isNaN(value)){
-                        value = parseInt(value);
-                    }
-
-                    viewModel[attr] = value;
-                }); 
-
-                viewModel.registerListener(attr, ()=>{
-                    $(this).val(viewModel[attr]);
-                })
-            }
-            else if($(this).is("span") || $(this).is("p")){
-                $(this).text(viewModel[attr]);
-            }else{
-                $(this).html(viewModel[attr]);
-            }
-        })
-   `
 
     public show(){    
         let win:any =  new BrowserWindow({
@@ -50,10 +19,10 @@ export class Window{
             }
         });
 
-        win.viewModel = this._model;
-        win.loadURL(this._viewPath);
-        
+        const renderedComponent = ReactDOMServer.renderToString(React.createElement(this.component, {}, null));
 
+        win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(renderedComponent));
+        
         win.webContents.on('did-finish-load', function() {
             config.styles.forEach(css => {
                 console.log(`${__dirname}/${css}`);
@@ -62,8 +31,5 @@ export class Window{
                 })
             })
         });
-       
-        //Injecting ViewModel into current view
-        win.webContents.executeJavaScript(this.loadViewModel);
     }
 }
