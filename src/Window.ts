@@ -10,8 +10,46 @@ export class Window{
         this._viewPath = `file://${__dirname}/${viewPath}`;
         this._model = model;
     }
+
+    loadViewModel = `
+        let $ = require('jquery')
+        var electron = require('electron');
+        const viewModel = electron.remote.getCurrentWindow().viewModel;
+
+        //Make each field update viewmodel variables
+        $('[bind]').each(function(){
+            let attr = $(this).attr('bind');
+            
+            if($(this).is('input')){
+                $(this).val(viewModel[attr]);
+                $(this).on('change', ()=>{
+                    let value = $(this).val();
+                    if(!isNaN(value)){
+                        value = parseInt(value);
+                    }
+
+                    viewModel[attr] = value;
+                }); 
+
+                viewModel.registerListener(attr, ()=>{
+                    $(this).val(viewModel[attr]);
+                })
+            }
+            else if($(this).is("span") || $(this).is("p")){
+                $(this).text(viewModel[attr]);
+            }else{
+                $(this).html(viewModel[attr]);
+            }
+        })
+   `
+
     public show(){    
-        let win:any = new BrowserWindow();
+        let win:any =  new BrowserWindow({
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+
         win.viewModel = this._model;
         win.loadURL(this._viewPath);
         
@@ -26,36 +64,6 @@ export class Window{
         });
        
         //Injecting ViewModel into current view
-        win.webContents.executeJavaScript(`
-            let $ = require('jquery')
-            var electron = require('electron');
-            viewModel = electron.remote.getCurrentWindow().viewModel;
-
-            //Make each field update viewmodel variables
-            $('[bind]').each(function(){
-                let attr = $(this).attr('bind');
-                
-                if($(this).is('input')){
-                    $(this).val(viewModel[attr]);
-                    $(this).on('change', ()=>{
-                        let value = $(this).val();
-                        if(!isNaN(value)){
-                            value = parseInt(value);
-                        }
-
-                        viewModel[attr] = value;
-                    }); 
-
-                    viewModel.registerListener(attr, ()=>{
-                        $(this).val(viewModel[attr]);
-                    })
-                }
-                else if($(this).is("span") || $(this).is("p")){
-                    $(this).text(viewModel[attr]);
-                }else{
-                    $(this).html(viewModel[attr]);
-                }
-            })
-        `);
+        win.webContents.executeJavaScript(this.loadViewModel);
     }
 }
