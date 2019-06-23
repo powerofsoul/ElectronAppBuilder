@@ -1,7 +1,7 @@
 import { BrowserWindow } from 'electron';
 const fs = require("fs");
 
-import * as config from "./config.json";
+import config from "./config.js";
 
 export class Window{
     private _viewPath: string;
