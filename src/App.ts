@@ -1,5 +1,5 @@
 import { app } from 'electron';
-import { MainPageWindow } from "./MainPage/MainPageWindow";
+import { MainPageWindow } from "./windows/MainPage/MainPageWindow";
 
 app.on("ready", ()=>{
     var mainWindow = new MainPageWindow();

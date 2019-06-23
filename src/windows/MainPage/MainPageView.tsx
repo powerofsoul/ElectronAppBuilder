@@ -18,7 +18,7 @@ export default class MainPageView extends React.Component<Props, {}>{
 
     constructor(props: Props){
         super(props);
-        var documentationMarkdown = fs.readFileSync(`${__dirname}/../documentation.md`,'utf-8');
+        var documentationMarkdown = fs.readFileSync(`${__dirname}/../../documentation.md`,'utf-8');
         this.state.documentation = nmd(documentationMarkdown);
     }
     

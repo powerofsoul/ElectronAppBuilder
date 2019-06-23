@@ -1,5 +1,7 @@
 import { Window } from "../Window";
 import { dialog } from "electron";
+import * as fs from 'fs';
+import { Project } from "../../models/Project";
 
 export class MainPageWindow extends Window{
     constructor(){
@@ -13,6 +15,9 @@ export class MainPageWindow extends Window{
     }
     
     createProject(){
-       return dialog.showOpenDialog({ properties: ['openDirectory'] })
+       const path = dialog.showOpenDialog({ properties: ['openDirectory'] })[0]
+       if(fs.existsSync(path)){
+           Project.createInitialProject(path);
+       }
     }
 }

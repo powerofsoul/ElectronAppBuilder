@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron';
 const fs = require("fs");
-import config from "./config.js";
+import config from "../config.js";
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
