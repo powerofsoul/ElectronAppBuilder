@@ -20,14 +20,15 @@
   "author": "Florin Munteanu",
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^16.8.22",
     "electron": "^4.0.5",
-    "electron-packager": "^13.1.0",
     "electron-installer-windows": "^2.0.0",
+    "electron-packager": "^13.1.0",
     "grunt": "^1.0.3",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-ts": "^6.0.0-beta.22",
     "grunt-shell": "^3.0.1",
+    "grunt-ts": "^6.0.0-beta.22",
     "npx": "^10.2.0",
     "typescript": "3.5.2"
   },

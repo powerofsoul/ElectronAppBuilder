@@ -1,7 +1,7 @@
 import { app } from 'electron';
-import { MainWindow } from "./MainPage/MainWindow";
+import { MainPageWindow } from "./MainPage/MainPageWindow";
 
 app.on("ready", ()=>{
-    var mainWindow = new MainWindow();
+    var mainWindow = new MainPageWindow();
     mainWindow.show();
 });

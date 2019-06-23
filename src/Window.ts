@@ -2,15 +2,19 @@ import { BrowserWindow } from 'electron';
 const fs = require("fs");
 import config from "./config.js";
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
+
 import ReactDOMServer from 'react-dom/server';
+import electron = require('electron');
 
-export class Window{
-    private component: string;
-    private _model;
+export abstract class Window{
+    private componentPath: string;
 
-    constructor(component: React.Component) {
-        this.component = component;
+    constructor(componentPath) {
+        this.componentPath = componentPath.replace(/\\/g, "\\\\");
     }
+
+    public abstract getProps(): {[key: string]: ()=> void};
 
     public show(){    
         let win:any =  new BrowserWindow({
@@ -19,10 +23,23 @@ export class Window{
             }
         });
 
-        const renderedComponent = ReactDOMServer.renderToString(React.createElement(this.component, {}, null));
+        win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent("<html><body><div id='view'></body></html>"), {
+            baseURLForDataURL: `file://${__dirname}/app/`
+        })
 
-        win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(renderedComponent));
-        
+        win.componentProps = this.getProps();
+
+        win.webContents.executeJavaScript(`
+            const React = require('react');
+            const ReactDom = require('react-dom');
+            const Component = require('${this.componentPath}').default;
+            const electron = require('electron');
+
+            const componentProps = electron.remote.getCurrentWindow().componentProps;
+
+            ReactDom.render(React.createElement(Component, {events: componentProps}, null), document.getElementById('view'));
+        `);
+
         win.webContents.on('did-finish-load', function() {
             config.styles.forEach(css => {
                 console.log(`${__dirname}/${css}`);
