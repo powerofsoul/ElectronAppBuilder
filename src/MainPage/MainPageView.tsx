@@ -1,5 +1,7 @@
 import * as React from 'react';
 const { dialog } = require('electron')
+import * as fs from 'fs';
+var nmd = require('nano-markdown');
 
 interface WindowProps {
     events: { [key: string]: () => void }
@@ -8,7 +10,18 @@ interface WindowProps {
 interface Props extends WindowProps {
 
 }
+
 export default class MainPageView extends React.Component<Props, {}>{
+    state={
+        documentation: ""
+    }
+
+    constructor(props: Props){
+        super(props);
+        var documentationMarkdown = fs.readFileSync(`${__dirname}/../documentation.md`,'utf-8');
+        this.state.documentation = nmd(documentationMarkdown);
+    }
+    
     createProject(){
         alert(this.props.events.createProject());
     }
@@ -31,6 +44,8 @@ export default class MainPageView extends React.Component<Props, {}>{
                 </div>
                 <div className="col-6">
                     <h4>Documentation</h4>
+                        <div dangerouslySetInnerHTML={{__html:this.state.documentation}}>
+                    </div>
                 </div>
             </div>
         </div>
