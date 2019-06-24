@@ -1,11 +1,6 @@
 import { BrowserWindow } from 'electron';
 const fs = require("fs");
 import config from "../config.js";
-import * as React from 'react';
-import * as ReactDom from 'react-dom';
-
-import ReactDOMServer from 'react-dom/server';
-import electron = require('electron');
 
 export abstract class Window{
     private componentPath: string;
@@ -49,4 +44,8 @@ export abstract class Window{
             })
         });
     }
+}
+
+export interface WindowProps {
+    events: { [key: string]: () => void }
 }

@@ -1,22 +1,16 @@
 import * as React from 'react';
 const { dialog } = require('electron')
 import * as fs from 'fs';
+import { WindowProps } from '../Window';
 var nmd = require('nano-markdown');
 
-interface WindowProps {
-    events: { [key: string]: () => void }
-}
 
-interface Props extends WindowProps {
-
-}
-
-export default class MainPageView extends React.Component<Props, {}>{
+export default class MainPageView extends React.Component<WindowProps, {}>{
     state={
         documentation: ""
     }
 
-    constructor(props: Props){
+    constructor(props: WindowProps){
         super(props);
         var documentationMarkdown = fs.readFileSync(`${__dirname}/../../documentation.md`,'utf-8');
         this.state.documentation = nmd(documentationMarkdown);
