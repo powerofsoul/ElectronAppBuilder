@@ -6,7 +6,7 @@ import { ProjectPageWindow } from "../ProjectPage/ProjectPageWindow";
 
 export class MainPageWindow extends Window{
     constructor(){
-        super(require.resolve('./MainPageView'));
+        super(require.resolve('./MainPageView'), "Welcome!");
     }
     
     createProject(){
@@ -15,6 +15,7 @@ export class MainPageWindow extends Window{
            const project = new Project();
            project.path = path;
            project.version = "0.0.1";
+           project.name = "Test Project";
            project.author = "Florin Munteanu";
            Project.createInitialProject(project);
        }
@@ -24,7 +25,7 @@ export class MainPageWindow extends Window{
         const path = dialog.showOpenDialog({})[0];
         const project =  Project.openProject(path);
 
-        const projectPage = new ProjectPageWindow(project);
+        const projectPage = new ProjectPageWindow(project, project.name);
         projectPage.show();
         this.hide();
     }

@@ -4,14 +4,17 @@ import config from "../config.js";
 
 export class Window{
     private componentPath: string;
-    protected win:any = new BrowserWindow({
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });;
+    protected win:any;
 
-    constructor(componentPath) {
+    constructor(componentPath, title) {
         this.componentPath = componentPath.replace(/\\/g, "\\\\");  
+        this.win = new BrowserWindow({
+            webPreferences: {
+                nodeIntegration: true
+            },
+            title: title
+        });;
+    
     }
 
     public hide = () => {

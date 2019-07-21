@@ -21,6 +21,7 @@ export class Project{
     }
 
     version: string;
+    name: string;
     author: string;
     path: string;
 
