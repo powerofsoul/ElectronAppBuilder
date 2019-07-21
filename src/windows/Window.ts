@@ -37,8 +37,7 @@ export abstract class Window{
 
         win.webContents.on('did-finish-load', function() {
             config.styles.forEach(css => {
-                console.log(`${__dirname}/${css}`);
-                fs.readFile(`${__dirname}/${css}`, "utf-8", function(error, data) {
+                fs.readFile(css, "utf-8", function(error, data) {
                     win.webContents.insertCSS(data)
                 })
             })
