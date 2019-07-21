@@ -17,7 +17,7 @@ export default class MainPageView extends React.Component<WindowProps, {}>{
     }
     
     createProject(){
-        alert(this.props.events.createProject());
+        alert(this.props.viewModel.createProject());
     }
 
     render() {
@@ -33,7 +33,7 @@ export default class MainPageView extends React.Component<WindowProps, {}>{
                         <a href="#" onClick={() => this.createProject()}>Create new project</a>
                     </div>
                     <div>
-                        <a href="#">Open a project</a>
+                        <a href="#" onClick={()=> this.props.viewModel.openProject()}>Open a project</a>
                     </div>
                 </div>
                 <div className="col-6">

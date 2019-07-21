@@ -2,43 +2,45 @@ import { BrowserWindow } from 'electron';
 const fs = require("fs");
 import config from "../config.js";
 
-export abstract class Window{
+export class Window{
     private componentPath: string;
+    protected win:any = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });;
 
     constructor(componentPath) {
-        this.componentPath = componentPath.replace(/\\/g, "\\\\");
+        this.componentPath = componentPath.replace(/\\/g, "\\\\");  
     }
 
-    public abstract getProps(): {[key: string]: ()=> void};
+    public hide = () => {
+        this.win.close();
+    }
 
-    public show(){    
-        let win:any =  new BrowserWindow({
-            webPreferences: {
-                nodeIntegration: true
-            }
-        });
-
-        win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent("<html><body><div id='view'></body></html>"), {
+    public show = () => {    
+        this.win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent("<html><body><div id='view'></body></html>"), {
             baseURLForDataURL: `file://${__dirname}/app/`
         })
 
-        win.componentProps = this.getProps();
+        this.win.viewModel = this;
 
-        win.webContents.executeJavaScript(`
+        this.win.webContents.executeJavaScript(`
             const React = require('react');
             const ReactDom = require('react-dom');
             const Component = require('${this.componentPath}').default;
             const electron = require('electron');
 
-            const componentProps = electron.remote.getCurrentWindow().componentProps;
+            const viewModel = electron.remote.getCurrentWindow().viewModel;
 
-            ReactDom.render(React.createElement(Component, {events: componentProps}, null), document.getElementById('view'));
+            ReactDom.render(React.createElement(Component, {viewModel: viewModel}, null), document.getElementById('view'));
         `);
 
-        win.webContents.on('did-finish-load', function() {
+        var that = this;
+        this.win.webContents.on('did-finish-load', function() {
             config.styles.forEach(css => {
                 fs.readFile(css, "utf-8", function(error, data) {
-                    win.webContents.insertCSS(data)
+                    that.win.webContents.insertCSS(data)
                 })
             })
         });
@@ -46,5 +48,5 @@ export abstract class Window{
 }
 
 export interface WindowProps {
-    events: { [key: string]: () => void }
+    viewModel: any;
 }
