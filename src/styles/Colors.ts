@@ -1,4 +1,5 @@
 export enum BaseColors{
     white = "white",
-    red = "#ee421e"
+    red = "#ee421e",
+    black = "black"
 }
