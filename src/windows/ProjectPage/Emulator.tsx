@@ -1,16 +1,9 @@
 import * as React from "react";
 import styled from 'styled-components';
 import { BaseColors } from "../../styles/Colors";
+import DeviceSimulator from 'react-device-simulator'
 
-interface Props{
-
-}
-
-interface State{
- 
-}
-
-export class Emulator extends React.Component<Props, State>{
+export class Emulator extends React.Component{
     render() {
         const EmulatorContainer = styled.div`
             margin-left: auto;
@@ -20,6 +13,10 @@ export class Emulator extends React.Component<Props, State>{
             background-color: ${BaseColors.black}
         `;
 
-        return <EmulatorContainer />
+        return <EmulatorContainer>
+            <DeviceSimulator>
+                {this.props.children}
+            </DeviceSimulator>
+        </EmulatorContainer>
     }
 }
