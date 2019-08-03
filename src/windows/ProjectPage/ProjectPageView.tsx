@@ -4,39 +4,38 @@ import { WindowProps } from '../Window';
 import { BaseColors } from '../../styles/Colors';
 import { Emulator } from './Emulator'
 import AceEditor from 'react-ace';
-import brace from "brace";
+import { Space } from '../../styles/Space';
+import { FontSize } from '../../styles/FontSize';
 
 require("brace/mode/javascript");
 require("brace/theme/monokai");
 
-enum Tabs{
+enum Tabs {
     Code, Emulator
 }
 
-interface State{
+interface State {
     components: any[];
     currentTab: Tabs;
-    code: string;
 }
 
 export default class ProjectPageView extends React.Component<WindowProps, State>{
+    code: string;
+
     state = {
         components: [
             "List", "String"
         ],
-        currentTab: Tabs.Code,
-        code: `function add(a, b) {
-            return a + b;
-        }`
+        currentTab: Tabs.Code
     }
 
     changeTab = (tab: Tabs) => {
-        this.setState({currentTab: tab})
+        this.setState({ currentTab: tab })
     }
 
-    render(){
+    render() {
         const ComponentsContainer = styled.div`
-            min-height: 250px;
+            height: 40%;
         `;
 
         const LeftSide = styled.div`
@@ -49,51 +48,50 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         `;
 
         const TabButtons = styled.div`
+            margin-top: ${Space.md};
             display: flex;
             bottom: 0;
+            z-index:9999;
         `;
 
-        const EditorContainer = styled.div`
+        const ActiveView = styled.div`
             width: 100%;
-            height: 90%;
+            height: 100%;
             background-color: ${BaseColors.white}
         `;
 
-        return  <div className="container-fluid">
-            <div className="row"> 
+        return <div className="container-fluid">
+            <div className="row">
                 <LeftSide className="col-3">
                     <ComponentsContainer className="">
                         <h6>Components</h6>
                         <ul>
-                            {this.state.components.map((e, i)=> <li key={i}>{e}</li>)}
+                            {this.state.components.map((e, i) => <li key={i}>{e}</li>)}
                         </ul>
                     </ComponentsContainer>
                     <ComponentsContainer>
                         <h6>Properties</h6>
                     </ComponentsContainer>
+                    <TabButtons>
+                        <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
+                        <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
+                    </TabButtons>
                 </LeftSide>
                 <RightSide className="col-9">
-                    {this.state.currentTab == Tabs.Code && 
-                    <EditorContainer key="ace-editor">
-                         <AceEditor
-                            mode="javascript"
-                            theme="monokai"
-                            focus={true}
-                            value= {this.state.code}
-                            onChange={(code, event)=> {
-                                    this.setState({code: code})
-                                }
-                            }
-                            width="100%"
-                            height="100%"
-                            editorProps={{$blockScrolling: true}}
-                        />
-                    </EditorContainer>}
-                    {this.state.currentTab == Tabs.Emulator && <Emulator />}
-                    <TabButtons>
-                        <button onClick={()=> this.changeTab(Tabs.Code)} className="btn btn-outline-secondar">Code</button>
-                        <button onClick={()=> this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondar">Emulator</button>
-                    </TabButtons>
+                    <ActiveView>
+                        {this.state.currentTab == Tabs.Code &&
+                            <AceEditor
+                                mode="javascript"
+                                theme="monokai"
+                                focus={true}
+                                onChange={(code, event) => this.code = code}
+                                width="100%"
+                                height="100%"
+                                style={{fontSize: FontSize.lg}}
+                            />
+                        }   
+                        {this.state.currentTab == Tabs.Emulator && <Emulator />}
+                    </ActiveView>
                 </RightSide>
             </div>
         </div>
