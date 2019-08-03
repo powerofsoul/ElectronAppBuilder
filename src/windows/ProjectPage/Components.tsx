@@ -5,6 +5,8 @@ import { IProperty } from '../../models/IProperty';
 
 interface Props{
     components: IComponent[];
+    selectedComponent: IComponent;
+    onComponentSelect: (c: IComponent) => void;
 }
 
 interface State{
@@ -13,7 +15,7 @@ interface State{
 
 export class Components extends React.Component<Props, State>{
     state = {
-        selectedComponent: undefined
+        selectedComponent: this.props.selectedComponent
     }
 
     render(){
@@ -26,12 +28,12 @@ export class Components extends React.Component<Props, State>{
                 <h6>Components</h6>
                 <ul>
                     {this.props.components && this.props.components.map((component, i) =>
-                         <li key={i} onClick={()=> this.setState({selectedComponent: component})}>{component.name}</li>)}
+                         <li key={i} onClick={()=> this.props.onComponentSelect(component)}>{component.name}</li>)}
                 </ul>
             </ComponentsContainer>
             <ComponentsContainer>
                 <h6>Properties</h6>
-                {this.state.selectedComponent && this.state.selectedComponent.properties.map( (p: IProperty) => p.render())}
+                {this.state.selectedComponent && this.state.selectedComponent.properties.map((p: IProperty) => p.render())}
             </ComponentsContainer>
         </>
     }

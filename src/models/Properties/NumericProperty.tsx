@@ -2,11 +2,10 @@ import { IProperty } from "../IProperty";
 import * as React from "react";
 import styled from 'styled-components';
 import { Space } from "../../styles/Space";
+import { Property } from "../Property";
 
-export class NumericProperty implements IProperty {
-    name: string;
+export class NumericProperty extends Property {
     value: number;
-    
     increase: () => void;
     decrease: () => void;
 
@@ -14,14 +13,19 @@ export class NumericProperty implements IProperty {
         return <NumericPropertyRender property={this}/>;
     }
 
-    constructor(name: string, min: number, max: number) {
+    constructor(name: string, min: number, max: number, onPropertyUpdate) {
+        super(name, min, onPropertyUpdate);
         this.name = name;
         this.value = min;
+        this.onPropertyUpdate = onPropertyUpdate;
+
         this.increase = () => {
             this.value = this.value < max ? this.value + 1 : max;
+            this.onPropertyUpdate();
         };
         this.decrease = () => {
             this.value = this.value > min ? this.value - 1 : min;
+            this.onPropertyUpdate();
         }
     }
 }
@@ -46,7 +50,7 @@ class NumericPropertyRender extends React.Component<Props, {}>{
             margin-top: ${Space.sm};
         `;
         return <PropertyContainer key={this.props.property.name}>
-                    Value: {this.props.property.value} <span onClick={this.increase}>+</span> <span onClick={this.decrease}>-</span>
+                    {this.props.property.name}: {this.props.property.value} <span onClick={this.increase}>+</span> <span onClick={this.decrease}>-</span>
             </PropertyContainer>
     }
 }

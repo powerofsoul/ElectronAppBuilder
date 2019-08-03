@@ -3,38 +3,59 @@ import { IComponent } from '../IComponent';
 import { IProperty } from '../IProperty';
 import { NumericProperty } from '../Properties/NumericProperty';
 import styled from 'styled-components';
+import { StringProperty } from '../Properties/StringProperty';
 
 export class GridLayout implements IComponent {
     public name: string = "Grid Layout";
     public category: string;
 
-    private RowProperty: NumericProperty = new NumericProperty('Rows', 0 , 10);
-    private ColumnProperty: NumericProperty = new NumericProperty('Columns', 0 , 10);
+    private RowProperty: NumericProperty;
+    private ColumnProperty: NumericProperty;
+    private IdProperty: StringProperty;
+    private WidthProperty: StringProperty;
+    private HeightProperty: StringProperty;
 
-    public properties: IProperty[] = [this.ColumnProperty, this.RowProperty];
+    public properties: IProperty[];
 
-    children: IComponent[] = [];
-    addChildren: (component: IComponent) => void = ()=>{};
+    constructor(onPropertyUpdate) {
+        this.RowProperty = new NumericProperty('Rows', 0, 10, onPropertyUpdate);
+        this.ColumnProperty = new NumericProperty('Columns', 0, 10, onPropertyUpdate);
+        this.IdProperty = new StringProperty('ID', '', onPropertyUpdate);
+        this.WidthProperty = new StringProperty('Width', '90vw', onPropertyUpdate);
+        this.HeightProperty = new StringProperty('Height', '90vw', onPropertyUpdate);
+
+        this.properties = [this.RowProperty, this.ColumnProperty, this.IdProperty, this.WidthProperty, this.HeightProperty];
+    }
 
     component() {
-        const Row = styled.div`
-            display:flex;
-            width:100%;
-        `;
+        const containerStyle = {
+            width: this.WidthProperty.value,
+            height: this.HeightProperty.value,
+            overflow: "hidden"
+        };
 
-        const Column = styled.div`
-            width: ${100/this.ColumnProperty.value}%
-        `;
+        const rowStyle={
+            width: "100",
+            height: `${100 / this.RowProperty.value}%`,
+            display: 'flex'
+        }
 
-        const grid = Array.from(Array(this.RowProperty.value).keys()).map(()=>{
-            <Row>
-                {Array.from(Array(this.RowProperty.value).keys()).map(()=> <Column>TEST</Column>)}
-            </Row>
-        })
+        const columnStyle = {
+            width: `${100 / this.ColumnProperty.value}%`
+        }
 
-        return <div>
-             {grid}
-        </div>
+        const grid =  <div style={containerStyle}>
+            {Array.from(Array(this.RowProperty.value).keys()).map((re, ri) =>
+                <div style={rowStyle}>
+                    {Array.from(Array(this.ColumnProperty.value).keys()).map((ce, ci) =>
+                        <div style={columnStyle}>{ri} {ci}</div>)
+                    }
+                </div>)}
+            </div>
+            
+        return <>
+            {grid}
+        </>;
     }
 }
 

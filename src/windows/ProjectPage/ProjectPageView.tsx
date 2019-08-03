@@ -19,16 +19,26 @@ enum Tabs {
 
 interface State {
     components: IComponent[];
+    selectedComponent: IComponent;
     currentTab: Tabs;
 }
 
 export default class ProjectPageView extends React.Component<WindowProps, State>{
     code: string;
 
+    updateComponents = () => {
+        this.setState({
+            components: this.state.components,
+            selectedComponent: this.state.selectedComponent
+        })
+    };
+
     state = {
         components: [
-            new GridLayout()
+            new GridLayout(this.updateComponents),
+            new GridLayout(this.updateComponents)
         ],
+        selectedComponent: undefined,
         currentTab: Tabs.Code
     }
 
@@ -62,7 +72,10 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         return <div className="container-fluid">
             <div className="row">
                 <LeftSide className="col-3">
-                    <Components components={this.state.components}/>
+                    <Components components={this.state.components} 
+                                selectedComponent={this.state.selectedComponent}
+                                onComponentSelect={(c)=> this.setState({selectedComponent: c})}
+                    />
                     <TabButtons>
                         <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
                         <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
@@ -81,7 +94,11 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                                 style={{fontSize: FontSize.lg}}
                             />
                         }   
-                        {this.state.currentTab == Tabs.Emulator && <Emulator />}
+                        {this.state.currentTab == Tabs.Emulator && <Emulator>
+                            <div>
+                                {this.state.components.map(c=> c.component())}
+                            </div>
+                        </Emulator>}
                     </ActiveView>
                 </RightSide>
             </div>

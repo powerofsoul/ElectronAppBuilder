@@ -9,6 +9,7 @@ export class Emulator extends React.Component{
             margin-left: auto;
             margin-right: auto;
             background-color: ${BaseColors.black}
+            height:100%;
         `;
 
         return <EmulatorContainer>
