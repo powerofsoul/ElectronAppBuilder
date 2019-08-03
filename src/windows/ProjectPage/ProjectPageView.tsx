@@ -6,6 +6,9 @@ import { Emulator } from './Emulator'
 import AceEditor from 'react-ace';
 import { Space } from '../../styles/Space';
 import { FontSize } from '../../styles/FontSize';
+import { Components } from './Components';
+import { IComponent } from '../../models/IComponent';
+import { GridLayout } from '../../models/Components/GridLayout';
 
 require("brace/mode/javascript");
 require("brace/theme/monokai");
@@ -15,7 +18,7 @@ enum Tabs {
 }
 
 interface State {
-    components: any[];
+    components: IComponent[];
     currentTab: Tabs;
 }
 
@@ -24,7 +27,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
 
     state = {
         components: [
-            "List", "String"
+            new GridLayout()
         ],
         currentTab: Tabs.Code
     }
@@ -34,10 +37,6 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
     }
 
     render() {
-        const ComponentsContainer = styled.div`
-            height: 40%;
-        `;
-
         const LeftSide = styled.div`
             border-right: 1px solid ${BaseColors.white}
         `;
@@ -63,15 +62,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         return <div className="container-fluid">
             <div className="row">
                 <LeftSide className="col-3">
-                    <ComponentsContainer className="">
-                        <h6>Components</h6>
-                        <ul>
-                            {this.state.components.map((e, i) => <li key={i}>{e}</li>)}
-                        </ul>
-                    </ComponentsContainer>
-                    <ComponentsContainer>
-                        <h6>Properties</h6>
-                    </ComponentsContainer>
+                    <Components components={this.state.components}/>
                     <TabButtons>
                         <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
                         <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
