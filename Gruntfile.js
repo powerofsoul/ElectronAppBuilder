@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       watch: {
         scripts: {
           files: ['src/**/*'],
-          tasks: ['copy', "ts", "shell:start"],
+          tasks: ['copy', "ts"],
           options: {
             spawn: false,
           },
