@@ -1,1 +1,0 @@
-src\models\IProperty.ts src\models\Property.ts src\windows\ProjectPage\Components.tsx --sourcemap --emitDecoratorMetadata --suppressImplicitAnyIndexErrors --experimentalDecorators --jsx react --moduleResolution node --rootDir ./src --esModuleInterop --baseUrl . --target ES6 --module commonjs --outDir dist
