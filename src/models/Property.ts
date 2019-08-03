@@ -7,14 +7,12 @@ export abstract class Property implements IProperty{
 
     render: () => React.ComponentClass<{}, any>;
     
-    onPropertyUpdate: () => void;
     edit?: (newValue: any) => void;
     increase?: () => void;
     decrease?: () => void;
 
-    constructor(name, defaultValue: number|string|{}, onPropertyUpdate: ()=> void){
+    constructor(name, defaultValue: number|string|{}){
         this.name = name;
         this.value = defaultValue;
-        this.onPropertyUpdate = onPropertyUpdate;
     }
 }

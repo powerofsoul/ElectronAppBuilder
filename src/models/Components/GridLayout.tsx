@@ -17,12 +17,12 @@ export class GridLayout implements IComponent {
 
     public properties: IProperty[];
 
-    constructor(onPropertyUpdate) {
-        this.RowProperty = new NumericProperty('Rows', 0, 10, onPropertyUpdate);
-        this.ColumnProperty = new NumericProperty('Columns', 0, 10, onPropertyUpdate);
-        this.IdProperty = new StringProperty('ID', '', onPropertyUpdate);
-        this.WidthProperty = new StringProperty('Width', '90vw', onPropertyUpdate);
-        this.HeightProperty = new StringProperty('Height', '90vw', onPropertyUpdate);
+    constructor() {
+        this.RowProperty = new NumericProperty('Rows', 0, 10);
+        this.ColumnProperty = new NumericProperty('Columns', 0, 10);
+        this.IdProperty = new StringProperty('ID', '');
+        this.WidthProperty = new StringProperty('Width', '100%');
+        this.HeightProperty = new StringProperty('Height', '100%');
 
         this.properties = [this.RowProperty, this.ColumnProperty, this.IdProperty, this.WidthProperty, this.HeightProperty];
     }
@@ -31,12 +31,15 @@ export class GridLayout implements IComponent {
         const containerStyle = {
             width: this.WidthProperty.value,
             height: this.HeightProperty.value,
+            position: 'absolute' as 'absolute',
+            top: 0,
+            left:0,
             overflow: "hidden"
         };
 
         const rowStyle={
             width: "100",
-            height: `${100 / this.RowProperty.value}%`,
+            height: `${100 /this.RowProperty.value}%`,
             display: 'flex'
         }
 

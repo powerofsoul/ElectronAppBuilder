@@ -21,6 +21,8 @@ export class Components extends React.Component<Props, State>{
     render(){
         const ComponentsContainer = styled.div`
             height: 40%;
+            overflow-x: hidden;
+            overflow-y: show;
         `;
 
         return <>

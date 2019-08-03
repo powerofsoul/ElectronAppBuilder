@@ -13,19 +13,16 @@ export class NumericProperty extends Property {
         return <NumericPropertyRender property={this}/>;
     }
 
-    constructor(name: string, min: number, max: number, onPropertyUpdate) {
-        super(name, min, onPropertyUpdate);
+    constructor(name: string, min: number, max: number) {
+        super(name, min);
         this.name = name;
         this.value = min;
-        this.onPropertyUpdate = onPropertyUpdate;
 
         this.increase = () => {
             this.value = this.value < max ? this.value + 1 : max;
-            this.onPropertyUpdate();
         };
         this.decrease = () => {
             this.value = this.value > min ? this.value - 1 : min;
-            this.onPropertyUpdate();
         }
     }
 }

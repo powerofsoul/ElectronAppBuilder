@@ -12,13 +12,11 @@ export class StringProperty extends Property {
         return <StringPropertyRender property={this}/>;
     }
 
-    constructor(name: string, defaultValue = "", onPropertyUpdate) {
-        super(name, defaultValue, onPropertyUpdate);
+    constructor(name: string, defaultValue = "") {
+        super(name, defaultValue);
         this.edit = (newValue) => {
             this.value = newValue;
-            this.onPropertyUpdate();
         };
-        this.onPropertyUpdate = onPropertyUpdate;
     }
 }
 

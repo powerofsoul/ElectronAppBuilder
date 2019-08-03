@@ -26,17 +26,9 @@ interface State {
 export default class ProjectPageView extends React.Component<WindowProps, State>{
     code: string;
 
-    updateComponents = () => {
-        this.setState({
-            components: this.state.components,
-            selectedComponent: this.state.selectedComponent
-        })
-    };
-
     state = {
         components: [
-            new GridLayout(this.updateComponents),
-            new GridLayout(this.updateComponents)
+            new GridLayout()
         ],
         selectedComponent: undefined,
         currentTab: Tabs.Code
@@ -69,6 +61,15 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
             background-color: ${BaseColors.white}
         `;
 
+        const ApplyChangesButton = styled.button`
+            margin-left:auto;
+            margin-right:auto;
+        `;
+
+        const ButtonsContainer = styled.div`
+            margin-top: ${Space.sm}
+        `;
+
         return <div className="container-fluid">
             <div className="row">
                 <LeftSide className="col-3">
@@ -76,10 +77,16 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                                 selectedComponent={this.state.selectedComponent}
                                 onComponentSelect={(c)=> this.setState({selectedComponent: c})}
                     />
-                    <TabButtons>
-                        <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
-                        <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
-                    </TabButtons>
+                    <ButtonsContainer>
+                        <ApplyChangesButton onClick={()=> this.forceUpdate()}
+                                            className="btn btn-success">
+                            Apply Changes
+                        </ApplyChangesButton>
+                        <TabButtons>
+                            <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
+                            <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
+                        </TabButtons>
+                    </ButtonsContainer>
                 </LeftSide>
                 <RightSide className="col-9">
                     <ActiveView>
@@ -87,9 +94,9 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                             <AceEditor
                                 mode="javascript"
                                 theme="monokai"
-                                focus={true}
                                 onChange={(code, event) => this.code = code}
                                 width="100%"
+                                value={this.code}
                                 height="100%"
                                 style={{fontSize: FontSize.lg}}
                             />
