@@ -38,6 +38,13 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         this.setState({ currentTab: tab })
     }
 
+    removeComponent = (index: number) => {
+        this.state.components.splice(index, 1);
+        this.setState({
+            components: this.state.components
+        });
+    }
+
     render() {
         const LeftSide = styled.div`
             border-right: 1px solid ${BaseColors.white}
@@ -75,7 +82,8 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                 <LeftSide className="col-3">
                     <Components components={this.state.components} 
                                 selectedComponent={this.state.selectedComponent}
-                                onComponentSelect={(c)=> this.setState({selectedComponent: c})}
+                                onSelectComponent={(c)=> this.setState({selectedComponent: c})}
+                                onRemoveComponent={this.removeComponent}
                     />
                     <ButtonsContainer>
                         <ApplyChangesButton onClick={()=> this.forceUpdate()}

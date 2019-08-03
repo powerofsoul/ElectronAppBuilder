@@ -3,6 +3,11 @@ import * as React from "react";
 import styled from 'styled-components';
 import { Space } from "../../styles/Space";
 import { Property } from "../Property";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPlus, faMinus);
 
 export class NumericProperty extends Property {
     value: number;
@@ -45,9 +50,20 @@ class NumericPropertyRender extends React.Component<Props, {}>{
     render() {
         const PropertyContainer = styled.div`
             margin-top: ${Space.sm};
+
+            span{
+                margin-left: 5px;
+            }
         `;
+        
         return <PropertyContainer key={this.props.property.name}>
-                    {this.props.property.name}: {this.props.property.value} <span onClick={this.increase}>+</span> <span onClick={this.decrease}>-</span>
+                    {this.props.property.name}: {this.props.property.value} 
+                        <span onClick={this.increase}>
+                            <FontAwesomeIcon icon='plus' />    
+                        </span> 
+                        <span onClick={this.decrease}>
+                            <FontAwesomeIcon icon='minus' />
+                        </span>
             </PropertyContainer>
     }
 }
