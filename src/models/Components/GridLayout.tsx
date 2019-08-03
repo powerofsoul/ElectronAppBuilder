@@ -4,6 +4,7 @@ import { IProperty } from '../IProperty';
 import { NumericProperty } from '../Properties/NumericProperty';
 import styled from 'styled-components';
 import { StringProperty } from '../Properties/StringProperty';
+import { CheckboxProperty } from '../Properties/CheckboxProperty';
 
 export class GridLayout implements IComponent {
     public name: string = "Grid Layout";
@@ -14,6 +15,7 @@ export class GridLayout implements IComponent {
     private IdProperty: StringProperty;
     private WidthProperty: StringProperty;
     private HeightProperty: StringProperty;
+    private IsVisibleProperty: CheckboxProperty;
 
     public properties: IProperty[];
 
@@ -23,8 +25,15 @@ export class GridLayout implements IComponent {
         this.IdProperty = new StringProperty('ID', '');
         this.WidthProperty = new StringProperty('Width', '100%');
         this.HeightProperty = new StringProperty('Height', '100%');
+        this.IsVisibleProperty = new CheckboxProperty('IsVisible', false);
 
-        this.properties = [this.RowProperty, this.ColumnProperty, this.IdProperty, this.WidthProperty, this.HeightProperty];
+        this.properties = [this.RowProperty, 
+            this.ColumnProperty, 
+            this.IdProperty, 
+            this.WidthProperty, 
+            this.HeightProperty,
+            this.IsVisibleProperty
+        ];
     }
 
     component() {

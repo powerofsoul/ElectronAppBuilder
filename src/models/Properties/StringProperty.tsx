@@ -14,9 +14,6 @@ export class StringProperty extends Property {
 
     constructor(name: string, defaultValue = "") {
         super(name, defaultValue);
-        this.edit = (newValue) => {
-            this.value = newValue;
-        };
     }
 }
 
