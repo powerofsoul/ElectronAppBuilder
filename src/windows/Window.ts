@@ -22,23 +22,27 @@ export class Window{
     }
 
     public show = () => {    
-        this.win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent("<html><body><div id='view'></body></html>"), {
+        this.win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(`
+        <html>
+            <body>
+                <div id='view'>
+                    TEST
+                </div>
+            </body>
+            <script>
+                const React = require('react');
+                const ReactDom = require('react-dom');
+                const Component = require('${this.componentPath}').default;
+                const electron = require('electron');
+
+                const viewModel = electron.remote.getCurrentWindow().viewModel;
+                ReactDom.render(React.createElement(Component, {viewModel: viewModel}, null), document.getElementById('view'));
+            </script>
+        </html>`), {
             baseURLForDataURL: `file://${__dirname}/app/`
         })
 
         this.win.viewModel = this;
-
-        this.win.webContents.executeJavaScript(`
-            const React = require('react');
-            const ReactDom = require('react-dom');
-            const Component = require('${this.componentPath}').default;
-            const electron = require('electron');
-
-            const viewModel = electron.remote.getCurrentWindow().viewModel;
-
-            ReactDom.render(React.createElement(Component, {viewModel: viewModel}, null), document.getElementById('view'));
-        `);
-
         var that = this;
         this.win.webContents.on('did-finish-load', function() {
             config.styles.forEach(css => {

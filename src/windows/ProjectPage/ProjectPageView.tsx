@@ -10,7 +10,7 @@ require("brace/mode/javascript");
 require("brace/theme/monokai");
 
 enum Tabs{
-    Code, Emulator, Later
+    Code, Emulator
 }
 
 interface State{
@@ -24,7 +24,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         components: [
             "List", "String"
         ],
-        currentTab: Tabs.Later,
+        currentTab: Tabs.Code,
         code: `function add(a, b) {
             return a + b;
         }`
