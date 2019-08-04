@@ -13,10 +13,10 @@ export class RowComponent extends Component {
             "Width": new NumericProperty('Columns', 0, 10, onUpdate)
         }
         
-        this.style= {
+        this.style= () => { return {
             display: "flex",
             width: '100%',
             height: "100px"
-        }
+        }}
     }
 }

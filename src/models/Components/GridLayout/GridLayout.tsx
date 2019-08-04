@@ -24,14 +24,10 @@ export class GridLayout extends Component {
             "Visible": new CheckboxProperty('IsVisible', false)
         }
          
-        this.style = {
+        this.style= () => { return {
             width: this.properties['Width'].value as number,
             height: this.properties['Height'].value as number,
-            position: 'absolute' as 'absolute',
-            top: 0,
-            left: 0,
-            overflow: "hidden"
-        };
+        }};
     }
 }
 

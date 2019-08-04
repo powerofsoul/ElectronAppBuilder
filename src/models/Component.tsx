@@ -7,9 +7,9 @@ export class Component implements IComponent {
     public category: string;
 
     public view = () => <></>;
-    public style: React.CSSProperties = {}
+    public style: () => React.CSSProperties = () => { return {} }
 
-    public properties: {[key: string]: IProperty} = {}; 
+    public properties: { [key: string]: IProperty } = {};
     public children: IComponent[] = [];
 
     public addChild = (child: IComponent) => {
@@ -17,11 +17,10 @@ export class Component implements IComponent {
     }
 
     private render: (component: IComponent) => any = (component) => {
-        return component.children.map(c=> <div style={c.style}>
-                {c.view()}
-                {this.render(c)}
-                </div>
-            )
+        return <div style={component.style()}>
+            {component.view()}
+            {component.children.map(c => this.render(c))}
+        </div>
     }
 
     component: () => any = () => {
@@ -30,7 +29,7 @@ export class Component implements IComponent {
         </div>
     };
 
-    constructor(name: string, category: string = ""){
+    constructor(name: string, category: string = "") {
         this.name = name;
         this.category = category;
     }

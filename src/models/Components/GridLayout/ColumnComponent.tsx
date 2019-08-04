@@ -4,8 +4,8 @@ export class ColumnComponent extends Component {
     constructor(){
         super("Column");
 
-        this.style = {
+        this.style= () => { return {
             width: "100px"
-        }
+        }}
     }
 }
