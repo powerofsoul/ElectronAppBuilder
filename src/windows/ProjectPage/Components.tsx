@@ -9,6 +9,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Space } from '../../styles/Space';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { ImageComponent } from '../../models/Components/ImageComponent';
+import { InputComponent } from '../../models/Components/InputComponent';
 
 library.add(faTrash);
 
@@ -52,6 +53,9 @@ export class Components extends React.Component<Props, State>{
                             <ContextMenu id={`${component.name}${i}`}>
                                 <MenuItem onClick={()=> component.addChild(new ImageComponent())}>
                                         Add Image
+                                </MenuItem>
+                                <MenuItem onClick={()=> component.addChild(new InputComponent())}>
+                                        Add Input
                                 </MenuItem>
                             </ContextMenu>
                         </ComponentSpan>
