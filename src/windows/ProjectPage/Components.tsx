@@ -65,7 +65,10 @@ export class Components extends React.Component<Props, State>{
         </ComponentsContainer>
             <ComponentsContainer>
                 <h6>Properties</h6>
-                {this.state.selectedComponent && this.state.selectedComponent.properties.map((p: IProperty) => p.render())}
+                {this.state.selectedComponent && this.state.selectedComponent.properties &&
+                    Object.keys(this.state.selectedComponent.properties).map(
+                        (key: string) => this.state.selectedComponent.properties[key].render())
+                }
             </ComponentsContainer>
         </>
     }

@@ -2,14 +2,15 @@ import * as React from 'react';
 import { IComponent } from "./IComponent";
 import { IProperty } from "./IProperty";
 
-export abstract class Component implements IComponent {
-    properties: IProperty[]; 
-    children?: IComponent[];
-    addChildren?: () => void;
-    name: string;
-    category: string;
-    abstract view;
-    abstract style;
+export class Component implements IComponent {
+    public name: string;
+    public category: string;
+
+    public view = <></>;
+    public style: React.CSSProperties = {}
+
+    public properties: {[key: string]: IProperty} = {}; 
+    public children: IComponent[] = [];
 
     private render: (component: IComponent) => any = (component) => {
         return component.children.map(c=> <div style={c.style}>
@@ -25,4 +26,9 @@ export abstract class Component implements IComponent {
             {this.render(this)}
         </div>
     };
+
+    constructor(name: string, category: string = ""){
+        this.name = name;
+        this.category = category;
+    }
 }

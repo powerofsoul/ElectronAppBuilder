@@ -5,15 +5,10 @@ import * as React from 'react';
 import { Component } from "../Component";
 
 export class AppComponent extends Component {
-    view: any;
-    style: any;
-    
-    properties: IProperty[] = [];    
-     
-    name: string = 'App';
-    category: string;
-
-    children: IComponent[] = [
-        new GridLayout()
-    ]
+    constructor(){
+        super("App", "");
+        this.children = [
+            new GridLayout()
+        ]
+    }
 }

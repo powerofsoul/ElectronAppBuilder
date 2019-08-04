@@ -3,12 +3,7 @@ import { IProperty } from "../../IProperty";
 import { Component } from "../../Component";
 import * as React from 'react';
 
-export class ColumnComponent extends Component {
-    properties: IProperty[] = [];    
-     
-    name: string = 'Column';
-    category: string;
-
+export class ColumnComponent extends Component {     
     children: IComponent[] = [];
     
     style = {
@@ -16,4 +11,8 @@ export class ColumnComponent extends Component {
     }
 
     view = <div>Column</div>;
+
+    constructor(){
+        super("Column");
+    }
 }
