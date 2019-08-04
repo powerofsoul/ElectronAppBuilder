@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Space } from '../../styles/Space';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import { ImageComponent } from '../../models/Components/ImageComponent';
 
 library.add(faTrash);
 
@@ -36,21 +38,31 @@ export class Components extends React.Component<Props, State>{
                 display: inline-block;
             }
         `;
+        
         return components.map((component, i) =>
             <ul>
                 <li key={i}>
-                    <ComponentSpan onClick={() => this.props.onSelectComponent(component)}>
-                        {component.name}
-                        <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
-                            onClick={() => { this.props.onRemoveComponent(components, i) }}>
-                            <FontAwesomeIcon icon="trash" />
-                        </i>
-                    </ComponentSpan>
-                    
-                    {component.children && this.renderComponents(component.children)}
+                    <ContextMenuTrigger id={`${component.name}${i}`}>
+                        <ComponentSpan onClick={() => this.props.onSelectComponent(component)}>
+                            {component.name}
+                            <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
+                                onClick={() => { this.props.onRemoveComponent(components, i) }}>
+                                <FontAwesomeIcon icon="trash" />
+                            </i>
+                            <ContextMenu id={`${component.name}${i}`}>
+                                <MenuItem onClick={()=> component.addChild(new ImageComponent())}>
+                                        Add Image
+                                </MenuItem>
+                            </ContextMenu>
+                        </ComponentSpan>
+
+                        {component.children && this.renderComponents(component.children)}
+                    </ContextMenuTrigger>
+
                 </li>
             </ul>)
     }
+
     render() {
         const ComponentsContainer = styled.div`
             height: 40%;
@@ -62,7 +74,7 @@ export class Components extends React.Component<Props, State>{
             <ComponentsContainer className="">
                 <h6>Components</h6>
                 {this.renderComponents(this.props.components)}
-        </ComponentsContainer>
+            </ComponentsContainer>
             <ComponentsContainer>
                 <h6>Properties</h6>
                 {this.state.selectedComponent && this.state.selectedComponent.properties &&

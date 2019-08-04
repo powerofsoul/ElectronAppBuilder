@@ -42,6 +42,7 @@
     "nano-markdown": "^1.2.0",
     "react": "^16.8.6",
     "react-ace": "^7.0.2",
+    "react-contextmenu": "^2.11.0",
     "react-device-simulator": "^1.0.1",
     "react-dom": "^16.8.6",
     "react-simple-checkbox": "^1.3.0",

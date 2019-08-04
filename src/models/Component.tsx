@@ -6,19 +6,22 @@ export class Component implements IComponent {
     public name: string;
     public category: string;
 
-    public view = <></>;
+    public view = () => <></>;
     public style: React.CSSProperties = {}
 
     public properties: {[key: string]: IProperty} = {}; 
     public children: IComponent[] = [];
 
+    public addChild = (child: IComponent) => {
+        this.children.push(child);
+    }
+
     private render: (component: IComponent) => any = (component) => {
         return component.children.map(c=> <div style={c.style}>
-                {c.view}
+                {c.view()}
                 {this.render(c)}
                 </div>
             )
-      
     }
 
     component: () => any = () => {

@@ -15,26 +15,26 @@ export class NumericProperty extends Property {
     decrease: () => void;
 
     render: () => any = () => {
-        return <NumericPropertyRender property={this}/>;
+        return <NumericPropertyRender property={this} />;
     }
 
-    constructor(name: string, min: number, max: number, onUpdate = () => {}) {
+    constructor(name: string, min: number, max: number, onIncrease = () => { }, onDecrease = () => { }) {
         super(name, min);
         this.name = name;
         this.value = min;
 
         this.increase = () => {
             this.value = this.value < max ? this.value + 1 : max;
-            onUpdate();
+            onIncrease();
         };
         this.decrease = () => {
             this.value = this.value > min ? this.value - 1 : min;
-            onUpdate();
+            onDecrease();
         }
     }
 }
 
-interface Props{
+interface Props {
     property: IProperty;
 }
 
@@ -57,16 +57,16 @@ class NumericPropertyRender extends React.Component<Props, {}>{
                 margin-left: 5px;
             }
         `;
-        
+
         return <PropertyContainer key={this.props.property.name}>
-                    {this.props.property.name}: {this.props.property.value} 
-                        <span onClick={this.increase}>
-                            <FontAwesomeIcon icon='plus' />    
-                        </span> 
-                        <span onClick={this.decrease}>
-                            <FontAwesomeIcon icon='minus' />
-                        </span>
-            </PropertyContainer>
+            {this.props.property.name}: {this.props.property.value}
+            <span onClick={this.increase}>
+                <FontAwesomeIcon icon='plus' />
+            </span>
+            <span onClick={this.decrease}>
+                <FontAwesomeIcon icon='minus' />
+            </span>
+        </PropertyContainer>
     }
 }
 

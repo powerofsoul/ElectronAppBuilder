@@ -7,12 +7,17 @@ import { Component } from '../../../models/Component';
 export class GridLayout extends Component {
     constructor() {
         super('Grid Layout', "");
-        const onUpdate = () => {
-            this.children = Array.from(new Array(this.properties['Rows'].value).keys()).map(()=> new RowComponent());
+
+        const onIncrease = () => {
+            this.children.push(new RowComponent());
+        }
+
+        const onDecrease = () => {
+            this.children.pop();
         }
 
         this.properties = {
-            "Rows":  new NumericProperty('Rows', 0, 10, onUpdate),
+            "Rows":  new NumericProperty('Rows', 0, 10, onIncrease, onDecrease),
             "ID":  new StringProperty('ID', ''),
             "Width": new StringProperty('Width', '100%'),
             "Height": new StringProperty('Height', '100%'),

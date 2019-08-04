@@ -46,6 +46,10 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         });
     }
 
+    refresh = () => {
+        this.setState({components: this.state.components});
+    }
+
     render() {
         const LeftSide = styled.div`
             border-right: 1px solid ${BaseColors.white}
@@ -87,7 +91,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                                 onRemoveComponent={this.removeComponent}
                     />
                     <ButtonsContainer>
-                        <ApplyChangesButton onClick={()=> this.forceUpdate()}
+                        <ApplyChangesButton onClick={()=> this.refresh()}
                                             className="btn btn-success">
                             Apply Changes
                         </ApplyChangesButton>
