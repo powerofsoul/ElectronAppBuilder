@@ -30,7 +30,8 @@
     "grunt-shell": "^3.0.1",
     "grunt-ts": "^6.0.0-beta.22",
     "npx": "^10.2.0",
-    "typescript": "3.5.2"
+    "typescript": "3.5.2",
+    "lodash": "^4.17.15"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
