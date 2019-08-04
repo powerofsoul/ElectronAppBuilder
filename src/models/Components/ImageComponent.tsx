@@ -1,10 +1,6 @@
-import { IComponent } from "../IComponent";
-import { IProperty } from "../IProperty";
-import { GridLayout } from "./GridLayout/GridLayout";
 import * as React from 'react';
 import { Component } from "../Component";
 import { StringProperty } from "../Properties/StringProperty";
-import { NumericProperty } from "../Properties/NumericProperty";
 
 export class ImageComponent extends Component {
     constructor(){
