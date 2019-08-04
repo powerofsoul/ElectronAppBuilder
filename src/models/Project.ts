@@ -12,7 +12,6 @@ export class Project{
 
         try {
             const solutionObject = JSON.parse(solution) as Project; 
-            solutionObject.path = projectPath;
 
             return solutionObject;
         } catch (error) {

@@ -10,6 +10,8 @@ import { Components } from './Components';
 import { IComponent } from '../../models/IComponent';
 import { GridLayout } from '../../models/Components/GridLayout/GridLayout';
 import { AppComponent } from '../../models/Components/AppComponent';
+import ReactDOMServer from 'react-dom/server';
+import ReactDOM from 'react-dom';
 
 require("brace/mode/javascript");
 require("brace/theme/monokai");
@@ -48,6 +50,8 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
 
     refresh = () => {
         this.setState({components: this.state.components});
+        var htmlOutput = ReactDOMServer.renderToStaticMarkup(this.state.components[0].component());
+        this.props.viewModel.createOutput(htmlOutput);
     }
 
     render() {
