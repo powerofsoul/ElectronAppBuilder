@@ -27,14 +27,26 @@ export class Components extends React.Component<Props, State>{
     }
 
     renderComponents = (components: IComponent[]) => {
+        const ComponentSpan = styled.span`
+            i {
+                display:none;
+            }
+
+            &:hover i{
+                display: inline-block;
+            }
+        `;
         return components.map((component, i) =>
             <ul>
                 <li key={i}>
-                    <span onClick={() => this.props.onSelectComponent(component)}>{component.name}</span>
-                    <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
-                        onClick={() => { this.props.onRemoveComponent(components, i) }}>
-                        <FontAwesomeIcon icon="trash" />
-                    </i>
+                    <ComponentSpan onClick={() => this.props.onSelectComponent(component)}>
+                        {component.name}
+                        <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
+                            onClick={() => { this.props.onRemoveComponent(components, i) }}>
+                            <FontAwesomeIcon icon="trash" />
+                        </i>
+                    </ComponentSpan>
+                    
                     {component.children && this.renderComponents(component.children)}
                 </li>
             </ul>)
