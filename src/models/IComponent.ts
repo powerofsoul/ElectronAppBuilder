@@ -2,10 +2,12 @@ import { IProperty } from "./IProperty";
 
 export interface IComponent{
     properties: IProperty[];
-    component: React.ElementType;
-
+    component: (args?: {[key: string]: any}) => any;
+    view: any;
+    style: any;
+    
     children?: IComponent[];
-    addChildren?:(component: IComponent) => void;
+    addChildren?:() => void;
 
     name: string;
     category: string;

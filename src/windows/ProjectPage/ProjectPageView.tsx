@@ -8,7 +8,8 @@ import { Space } from '../../styles/Space';
 import { FontSize } from '../../styles/FontSize';
 import { Components } from './Components';
 import { IComponent } from '../../models/IComponent';
-import { GridLayout } from '../../models/Components/GridLayout';
+import { GridLayout } from '../../models/Components/GridLayout/GridLayout';
+import { AppComponent } from '../../models/Components/AppComponent';
 
 require("brace/mode/javascript");
 require("brace/theme/monokai");
@@ -28,7 +29,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
 
     state = {
         components: [
-            new GridLayout()
+            new AppComponent()
         ],
         selectedComponent: undefined,
         currentTab: Tabs.Code
@@ -38,8 +39,8 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         this.setState({ currentTab: tab })
     }
 
-    removeComponent = (index: number) => {
-        this.state.components.splice(index, 1);
+    removeComponent = (components: IComponent[], index: number) => {
+        components.splice(index, 1);
         this.setState({
             components: this.state.components
         });

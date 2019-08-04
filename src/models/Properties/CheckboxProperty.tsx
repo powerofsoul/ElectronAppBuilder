@@ -15,7 +15,6 @@ export class CheckboxProperty extends Property {
 
     constructor(name: string, value: boolean) {
         super(name, value);
-        debugger;
         this.name = name;
         this.value = value;
     }

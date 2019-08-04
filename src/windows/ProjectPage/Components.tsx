@@ -10,14 +10,14 @@ import { Space } from '../../styles/Space';
 
 library.add(faTrash);
 
-interface Props{
+interface Props {
     components: IComponent[];
     selectedComponent: IComponent;
     onSelectComponent: (c: IComponent) => void;
-    onRemoveComponent: (i: number) => void;
+    onRemoveComponent: (components: IComponent[], i: number) => void;
 }
 
-interface State{
+interface State {
     selectedComponent: IComponent;
 }
 
@@ -26,7 +26,20 @@ export class Components extends React.Component<Props, State>{
         selectedComponent: this.props.selectedComponent
     }
 
-    render(){
+    renderComponents = (components: IComponent[]) => {
+        return components.map((component, i) =>
+            <ul>
+                <li key={i}>
+                    <span onClick={() => this.props.onSelectComponent(component)}>{component.name}</span>
+                    <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
+                        onClick={() => { this.props.onRemoveComponent(components, i) }}>
+                        <FontAwesomeIcon icon="trash" />
+                    </i>
+                    {component.children && this.renderComponents(component.children)}
+                </li>
+            </ul>)
+    }
+    render() {
         const ComponentsContainer = styled.div`
             height: 40%;
             overflow-x: hidden;
@@ -36,17 +49,8 @@ export class Components extends React.Component<Props, State>{
         return <>
             <ComponentsContainer className="">
                 <h6>Components</h6>
-                <ul>
-                    {this.props.components && this.props.components.map((component, i) =>
-                        <li key={i}>
-                            <span onClick={()=> this.props.onSelectComponent(component)}>{component.name}</span>
-                            <i style={{color: BaseColors.red, marginLeft: Space.sm}} 
-                                    onClick={()=> {this.props.onRemoveComponent(i)}}>
-                                        <FontAwesomeIcon icon="trash"/>
-                            </i>
-                        </li>)}
-                </ul>
-            </ComponentsContainer>
+                {this.renderComponents(this.props.components)}
+        </ComponentsContainer>
             <ComponentsContainer>
                 <h6>Properties</h6>
                 {this.state.selectedComponent && this.state.selectedComponent.properties.map((p: IProperty) => p.render())}
