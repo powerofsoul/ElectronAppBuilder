@@ -1,11 +1,11 @@
 import { Component } from "../../Component";
 
 export class ColumnComponent extends Component {     
-    constructor(){
+    constructor(columnCount= () => 1){
         super("Column");
 
         this.style= () => { return {
-            width: "100px"
+            width: `${100/columnCount()}%`
         }}
     }
 }

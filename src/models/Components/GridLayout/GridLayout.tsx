@@ -9,7 +9,7 @@ export class GridLayout extends Component {
         super('Grid Layout', "");
 
         const onIncrease = () => {
-            this.children.push(new RowComponent());
+            this.children.push(new RowComponent(() => this.children.length));
         }
 
         const onDecrease = () => {

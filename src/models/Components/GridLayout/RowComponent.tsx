@@ -3,20 +3,25 @@ import { ColumnComponent } from "./ColumnComponent";
 import { Component } from "../../../models/Component";
 
 export class RowComponent extends Component {
-    constructor(){
+    constructor(rowCount = () => 1){
         super("Row");
-        const onUpdate = () => {
-            this.children = Array.from(new Array(this.properties['Width'].value).keys()).map(()=> new ColumnComponent());
+
+        const onIncrease = () => {
+            this.children.push(new ColumnComponent(()=> this.children.length))
+        }
+
+        const onDecrease = () => {
+            this.children.push(new ColumnComponent(()=> this.children.length))
         }
 
         this.properties = {
-            "Width": new NumericProperty('Columns', 0, 10, onUpdate)
+            "Width": new NumericProperty('Columns', 0, 10, onIncrease, onDecrease)
         }
         
         this.style= () => { return {
             display: "flex",
             width: '100%',
-            height: "100px"
+            height: `${100/rowCount()}%`
         }}
     }
 }

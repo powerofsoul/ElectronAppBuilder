@@ -50,7 +50,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
 
     refresh = () => {
         this.setState({components: this.state.components});
-        var htmlOutput = ReactDOMServer.renderToStaticMarkup(this.state.components[0].component());
+        var htmlOutput = ReactDOM.create(this.state.components[0].component());
         this.props.viewModel.createOutput(htmlOutput);
     }
 
