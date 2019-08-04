@@ -16,7 +16,7 @@ export class Project{
 
             return solutionObject;
         } catch (error) {
-            throw "Unable to parse solution file. It might be corupted."
+            throw "Unable to parse solution file. It might be corrupted."
         }
     }
 
