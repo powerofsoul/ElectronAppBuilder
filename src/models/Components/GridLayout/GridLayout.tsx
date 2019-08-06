@@ -8,16 +8,7 @@ export class GridLayout extends Component {
     constructor() {
         super('Grid Layout', "");
 
-        const onIncrease = () => {
-            this.children.push(new RowComponent(() => this.children.length));
-        }
-
-        const onDecrease = () => {
-            this.children.pop();
-        }
-
         this.properties = {
-            "Rows":  new NumericProperty('Rows', 0, 10, onIncrease, onDecrease),
             "ID":  new StringProperty('ID', ''),
             "Width": new StringProperty('Width', '100%'),
             "Height": new StringProperty('Height', '100%'),

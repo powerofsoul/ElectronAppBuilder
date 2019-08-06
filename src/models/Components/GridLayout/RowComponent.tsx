@@ -4,7 +4,7 @@ import { Component } from "../../../models/Component";
 import { StringProperty } from "../../Properties/StringProperty";
 
 export class RowComponent extends Component {
-    constructor(rowCount = () => 1){
+    constructor(rowCount = () => 1) {
         super("Row");
 
         const onIncrease = () => {
