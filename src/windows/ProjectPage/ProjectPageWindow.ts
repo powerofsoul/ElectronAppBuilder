@@ -12,6 +12,11 @@ export class ProjectPageWindow extends Window{
     }
 
     createOutput(stringHTML: string){
-        fs.writeFile(path.join(this.project.path, "out", "index.html"), stringHTML, ()=>{});
+        const directory = path.join(this.project.path, "out");
+        if(!fs.existsSync(directory)){
+            fs.mkdirSync(directory);
+        }
+
+        fs.writeFile(path.join(directory, "index.html"), stringHTML, ()=>{});
     }
 }
