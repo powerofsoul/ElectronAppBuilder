@@ -10,6 +10,7 @@ import { Space } from '../../styles/Space';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { ImageComponent } from '../../models/Components/ImageComponent';
 import { InputComponent } from '../../models/Components/InputComponent';
+import { GridLayout } from '../../models/Components/GridLayout/GridLayout';
 
 library.add(faTrash);
 
@@ -51,12 +52,17 @@ export class Components extends React.Component<Props, State>{
                                 <FontAwesomeIcon icon="trash" />
                             </i>
                             <ContextMenu id={`${component.name}${i}`}>
-                                <MenuItem onClick={()=> component.addChild(new ImageComponent())}>
-                                        Add Image
-                                </MenuItem>
-                                <MenuItem onClick={()=> component.addChild(new InputComponent())}>
-                                        Add Input
-                                </MenuItem>
+                                <div style={{backgroundColor: "white", width:"100px", height: "100px", zIndex:999999}}>
+                                    <button onClick={()=> component.addChild(new ImageComponent())}>
+                                            Add Image
+                                    </button>
+                                    <button onClick={()=> component.addChild(new InputComponent())}>
+                                            Add Input
+                                    </button>
+                                    <button onClick={()=> component.addChild(new GridLayout())}>
+                                            Add Grid
+                                    </button>
+                                </div>
                             </ContextMenu>
                         </ComponentSpan>
 
