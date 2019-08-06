@@ -1,4 +1,4 @@
-import { Component } from "../../Component";
+import { Component } from "../Component";
 import { StringProperty } from "../../../models/Properties/StringProperty";
 import { ImageComponent } from "../ImageComponent";
 import { InputComponent } from "../InputComponent";

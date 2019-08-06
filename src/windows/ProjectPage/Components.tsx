@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { IComponent } from '../../models/IComponent';
+import { IComponent } from '../../models/Components/IComponent';
 import { BaseColors } from '../../styles/Colors';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";

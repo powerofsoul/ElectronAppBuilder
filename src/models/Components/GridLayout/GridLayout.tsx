@@ -2,7 +2,7 @@ import { NumericProperty } from '../../Properties/NumericProperty';
 import { StringProperty } from '../../Properties/StringProperty';
 import { CheckboxProperty } from '../../Properties/CheckboxProperty';
 import { RowComponent } from './RowComponent';
-import { Component } from '../../../models/Component';
+import { Component } from '../Component';
 import { ColumnComponent } from './ColumnComponent';
 
 export class GridLayout extends Component {

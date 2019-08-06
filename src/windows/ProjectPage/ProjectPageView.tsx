@@ -7,7 +7,7 @@ import AceEditor from 'react-ace';
 import { Space } from '../../styles/Space';
 import { FontSize } from '../../styles/FontSize';
 import { Components } from './Components';
-import { IComponent } from '../../models/IComponent';
+import { IComponent } from '../../models/Components/IComponent';
 import { GridLayout } from '../../models/Components/GridLayout/GridLayout';
 import { AppComponent } from '../../models/Components/AppComponent';
 import ReactDOMServer from 'react-dom/server';

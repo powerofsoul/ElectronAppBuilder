@@ -1,8 +1,8 @@
-import { IProperty } from "../IProperty";
+import { IProperty } from "./IProperty";
 import * as React from "react";
 import styled from 'styled-components';
 import { Space } from "../../styles/Space";
-import { Property } from "../Property";
+import { Property } from "./Property";
 import Checkbox from 'react-simple-checkbox';
 import { BaseColors } from "../../styles/Colors";
 

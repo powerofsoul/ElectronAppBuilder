@@ -1,6 +1,6 @@
 import { NumericProperty } from "../../../models/Properties/NumericProperty";
 import { ColumnComponent } from "./ColumnComponent";
-import { Component } from "../../../models/Component";
+import { Component } from "../Component";
 import { StringProperty } from "../../Properties/StringProperty";
 
 export class RowComponent extends Component {

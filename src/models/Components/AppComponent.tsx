@@ -1,8 +1,8 @@
-import { IComponent } from "../IComponent";
-import { IProperty } from "../IProperty";
+import { IComponent } from "./IComponent";
+import { IProperty } from "../Properties/IProperty";
 import { GridLayout } from "./GridLayout/GridLayout";
 import * as React from 'react';
-import { Component } from "../Component";
+import { Component } from "./Component";
 import { StringProperty } from "../Properties/StringProperty";
 
 export class AppComponent extends Component {
