@@ -3,6 +3,8 @@ import { dialog } from "electron";
 import * as fs from 'fs';
 import { Project } from "../../models/Project";
 import { ProjectPageWindow } from "../ProjectPage/ProjectPageWindow";
+var ncp = require('ncp').ncp;
+import * as pathUtils from 'path';
 
 export class MainPageWindow extends Window{
     constructor(){
@@ -14,10 +16,10 @@ export class MainPageWindow extends Window{
        if(fs.existsSync(path)){
            const project = new Project();
            project.path = path;
-           project.version = "0.0.1";
-           project.name = "Test Project";
-           project.author = "Florin Munteanu";
            Project.createInitialProject(project);
+           ncp(`${__dirname}/../../default-project`, project.path, (err)=>{
+               console.log(err);
+           })
        }
     }
 
@@ -25,7 +27,7 @@ export class MainPageWindow extends Window{
         const path = dialog.showOpenDialog({})[0];
         const project =  Project.openProject(path);
 
-        const projectPage = new ProjectPageWindow(project, project.name);
+        const projectPage = new ProjectPageWindow(project, project.properties['name']);
         projectPage.show();
         this.hide();
     }

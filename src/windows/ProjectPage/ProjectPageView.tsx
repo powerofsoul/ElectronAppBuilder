@@ -99,6 +99,10 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                                             className="btn btn-success">
                             Apply Changes
                         </ApplyChangesButton>
+                        <ApplyChangesButton onClick={()=> this.props.viewModel.buildApk()}
+                                            className="btn btn-danger">
+                            Build Apk
+                        </ApplyChangesButton>
                         <TabButtons>
                             <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
                             <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
