@@ -8,9 +8,7 @@ import { StringProperty } from "../Properties/StringProperty";
 export class AppComponent extends Component {
     constructor(){
         super("App", "");
-        this.children = [
-            new GridLayout()
-        ]
+        this.children = []
 
         this.properties = {
             "bc": new StringProperty("Background-Color", "transparent")
