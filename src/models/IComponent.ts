@@ -13,4 +13,9 @@ export interface IComponent{
     addChild: (child: IComponent) => void;
 
     children?: IComponent[];
+    childrenTypes: ChildrenTypeList;
+}
+
+export interface ChildrenTypeList{
+    [name: string]: {element: any, properties: any[]}
 }

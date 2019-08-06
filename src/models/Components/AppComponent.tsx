@@ -23,5 +23,9 @@ export class AppComponent extends Component {
             left: 0,
             overflow: "hidden"
         }}
+
+        this.childrenTypes = {
+            "Grid Layout": {element: GridLayout, properties: []}
+        }
     }
 }

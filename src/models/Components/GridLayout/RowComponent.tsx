@@ -6,17 +6,7 @@ import { StringProperty } from "../../Properties/StringProperty";
 export class RowComponent extends Component {
     constructor(rowCount = () => 1) {
         super("Row");
-
-        const onIncrease = () => {
-            this.children.push(new ColumnComponent(()=> this.children.length))
-        }
-
-        const onDecrease = () => {
-            this.children.push(new ColumnComponent(()=> this.children.length))
-        }
-
         this.properties = {
-            "Width": new NumericProperty('Columns', 0, 10, onIncrease, onDecrease),
             "BackgroundColor": new StringProperty('Background Color', "transparent")
         }
         
@@ -26,5 +16,14 @@ export class RowComponent extends Component {
             height: `${100/rowCount()}%`,
             backgroundColor: this.properties['BackgroundColor'].value as string
         }}
+
+        this.childrenTypes = {
+            "Column" : {
+                element: ColumnComponent, 
+                properties: [
+                    () => this.children.length
+                ]
+            }
+        }
     }
 }

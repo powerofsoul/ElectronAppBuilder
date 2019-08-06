@@ -1,16 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { IComponent } from '../../models/IComponent';
-import { IProperty } from '../../models/IProperty';
 import { BaseColors } from '../../styles/Colors';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Space } from '../../styles/Space';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-import { ImageComponent } from '../../models/Components/ImageComponent';
-import { InputComponent } from '../../models/Components/InputComponent';
-import { GridLayout } from '../../models/Components/GridLayout/GridLayout';
+import * as _ from "underscore";
 
 library.add(faTrash);
 
@@ -53,15 +50,10 @@ export class Components extends React.Component<Props, State>{
                             </i>
                             <ContextMenu id={`${component.name}${i}`}>
                                 <div style={{backgroundColor: "white", width:"100px", height: "100px", zIndex:999999}}>
-                                    <button onClick={()=> component.addChild(new ImageComponent())}>
-                                            Add Image
-                                    </button>
-                                    <button onClick={()=> component.addChild(new InputComponent())}>
-                                            Add Input
-                                    </button>
-                                    <button onClick={()=> component.addChild(new GridLayout())}>
-                                            Add Grid
-                                    </button>
+                                    {_.map(component.childrenTypes, (type, key)=> {
+                                       return <button onClick={()=> component.addChild(
+                                           new type.element(...type.properties))}>{key}</button>
+                                    })}
                                 </div>
                             </ContextMenu>
                         </ComponentSpan>

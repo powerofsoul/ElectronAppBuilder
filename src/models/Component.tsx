@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IComponent } from "./IComponent";
+import { IComponent, ChildrenTypeList } from "./IComponent";
 import { IProperty } from "./IProperty";
 
 export class Component implements IComponent {
@@ -11,6 +11,7 @@ export class Component implements IComponent {
 
     public properties: { [key: string]: IProperty } = {};
     public children: IComponent[] = [];
+    public childrenTypes: ChildrenTypeList = {};
 
     public addChild = (child: IComponent) => {
         this.children.push(child);
