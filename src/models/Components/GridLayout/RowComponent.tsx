@@ -1,6 +1,7 @@
 import { NumericProperty } from "../../../models/Properties/NumericProperty";
 import { ColumnComponent } from "./ColumnComponent";
 import { Component } from "../../../models/Component";
+import { StringProperty } from "../../Properties/StringProperty";
 
 export class RowComponent extends Component {
     constructor(rowCount = () => 1){
@@ -15,13 +16,15 @@ export class RowComponent extends Component {
         }
 
         this.properties = {
-            "Width": new NumericProperty('Columns', 0, 10, onIncrease, onDecrease)
+            "Width": new NumericProperty('Columns', 0, 10, onIncrease, onDecrease),
+            "BackgroundColor": new StringProperty('Background Color', "transparent")
         }
         
         this.style= () => { return {
             display: "flex",
             width: '100%',
-            height: `${100/rowCount()}%`
+            height: `${100/rowCount()}%`,
+            backgroundColor: this.properties['BackgroundColor'].value as string
         }}
     }
 }
