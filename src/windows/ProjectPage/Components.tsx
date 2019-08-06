@@ -72,6 +72,7 @@ export class Components extends React.Component<Props, State>{
             overflow-y: show;
         `;
 
+        const properties = this.state.selectedComponent ? this.state.selectedComponent.getProperties() : {};
         return <>
             <ComponentsContainer className="">
                 <h6>Components</h6>
@@ -80,8 +81,8 @@ export class Components extends React.Component<Props, State>{
             <ComponentsContainer>
                 <h6>Properties</h6>
                 {this.state.selectedComponent && this.state.selectedComponent.properties &&
-                    Object.keys(this.state.selectedComponent.properties).map(
-                        (key: string) => this.state.selectedComponent.properties[key].render())
+                    Object.keys(properties).map(
+                        (key: string) => properties[key].render())
                 }
             </ComponentsContainer>
         </>

@@ -8,7 +8,8 @@ export interface IComponent{
     style: () => React.CSSProperties;
 
     properties: {[key: string]: IProperty};
-    
+    getProperties: () => {[key: string]: IProperty};
+
     component: (args?: {[key: string]: any}) => any;
     addChild: (child: IComponent) => void;
 
