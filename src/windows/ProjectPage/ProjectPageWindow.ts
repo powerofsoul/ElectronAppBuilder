@@ -10,7 +10,7 @@ const {dialog} = require('electron');
 export class ProjectPageWindow extends Window {
     project: Project;
     constructor(project: Project, title: string) {
-        super(require.resolve('./ProjectPageView'), title);
+        super(require.resolve('./ProjectPageView'), title, 1200, 1000);
         this.project = project;
     }
 

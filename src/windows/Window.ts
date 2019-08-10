@@ -6,9 +6,11 @@ export class Window{
     private componentPath: string;
     protected win:any;
 
-    constructor(componentPath, title) {
+    constructor(componentPath: string, title: string, width: number = 800, height: number = 500) {
         this.componentPath = componentPath.replace(/\\/g, "\\\\");  
         this.win = new BrowserWindow({
+            width: width,
+            height: height,
             webPreferences: {
                 nodeIntegration: true
             },
@@ -25,9 +27,7 @@ export class Window{
         this.win.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(`
         <html>
             <body>
-                <div id='view'>
-                    TEST
-                </div>
+                <div id='view'></div>
             </body>
             <script>
                 const React = require('react');

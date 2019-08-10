@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import { Project } from "../../models/Project";
 import { ProjectPageWindow } from "../ProjectPage/ProjectPageWindow";
 var ncp = require('ncp').ncp;
-import * as pathUtils from 'path';
 
 export class MainPageWindow extends Window{
     constructor(){
