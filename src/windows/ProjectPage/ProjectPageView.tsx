@@ -64,11 +64,15 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
             height:
         `;
 
-        const TabButtons = styled.div`
+        const ButtonsContainer = styled.div`
             margin-top: ${Space.md};
             display: flex;
             bottom: 0;
             z-index:9999;
+
+            button {
+                margin-right: ${Space.md};
+            }
         `;
 
         const ActiveView = styled.div`
@@ -82,10 +86,6 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
             margin-right:auto;
         `;
 
-        const ButtonsContainer = styled.div`
-            margin-top: ${Space.sm}
-        `;
-
         return <div className="container-fluid">
             <div className="row">
                 <LeftSide className="col-3">
@@ -95,18 +95,18 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                                 onRemoveComponent={this.removeComponent}
                     />
                     <ButtonsContainer>
-                        <ApplyChangesButton onClick={()=> this.refresh()}
+                        <button onClick={()=> this.refresh()}
                                             className="btn btn-success">
                             Apply Changes
-                        </ApplyChangesButton>
-                        <ApplyChangesButton onClick={()=> this.props.viewModel.buildApk()}
+                        </button>
+                        <button onClick={()=> this.props.viewModel.buildApk()}
                                             className="btn btn-danger">
                             Build Apk
-                        </ApplyChangesButton>
-                        <TabButtons>
-                            <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
-                            <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
-                        </TabButtons>
+                        </button>
+                    </ButtonsContainer>
+                    <ButtonsContainer>
+                        <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
+                        <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
                     </ButtonsContainer>
                 </LeftSide>
                 <RightSide className="col-9">
