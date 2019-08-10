@@ -1,5 +1,5 @@
 import { ColumnComponent } from "./ColumnComponent";
-import { Component } from "../Component";
+import { Component } from "../../Component";
 
 export class RowComponent extends Component {
     constructor(rowCount = () => 1) {

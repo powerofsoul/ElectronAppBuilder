@@ -1,5 +1,5 @@
-import { Component } from "../Component";
-import { StringProperty } from "../../../models/Properties/StringProperty";
+import { Component } from "../../Component";
+import { StringProperty } from "../../../Properties/StringProperty";
 import { ImageComponent } from "../ImageComponent";
 import { InputComponent } from "../InputComponent";
 

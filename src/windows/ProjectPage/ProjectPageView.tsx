@@ -8,7 +8,7 @@ import { Space } from '../../styles/Space';
 import { FontSize } from '../../styles/FontSize';
 import { Components } from './Components';
 import { IComponent } from '../../models/Components/IComponent';
-import { AppComponent } from '../../models/Components/AppComponent';
+import { AppComponent } from '../../models/Components/BasicComponents/AppComponent';
 import ReactDOMServer from 'react-dom/server';
 
 require("brace/mode/javascript");

@@ -1,6 +1,6 @@
 import { GridLayout } from "./GridLayout/GridLayout";
-import { Component } from "./Component";
-import { StringProperty } from "../Properties/StringProperty";
+import { Component } from "../Component";
+import { StringProperty } from "../../Properties/StringProperty";
 
 export class AppComponent extends Component {
     constructor(){

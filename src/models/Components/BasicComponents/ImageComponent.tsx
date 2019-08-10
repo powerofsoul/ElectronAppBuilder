@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from "./Component";
-import { StringProperty } from "../Properties/StringProperty";
+import { Component } from "../Component";
+import { StringProperty } from "../../Properties/StringProperty";
 
 export class ImageComponent extends Component {
     constructor(){
