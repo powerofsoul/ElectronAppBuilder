@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IComponent, ChildrenTypeList } from "./IComponent";
-import { IProperty } from "../Properties/IProperty";
+import { IProperty } from "../IProperty";
 import { StringProperty } from '../Properties/StringProperty';
 
 export class Component implements IComponent {

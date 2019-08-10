@@ -1,4 +1,4 @@
-import { IProperty } from "../Properties/IProperty";
+import { IProperty } from "../IProperty";
 
 export interface IComponent{
     name: string;

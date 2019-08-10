@@ -1,5 +1,5 @@
 import { IComponent } from "./IComponent";
-import { IProperty } from "../Properties/IProperty";
+import { IProperty } from "../IProperty";
 import { GridLayout } from "./GridLayout/GridLayout";
 import * as React from 'react';
 import { Component } from "./Component";
