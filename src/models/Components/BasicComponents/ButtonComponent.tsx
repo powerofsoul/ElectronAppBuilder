@@ -11,6 +11,14 @@ export class ButtonComponent extends Component {
             "Text": new StringProperty("Text", "Button"),
         }
 
-        this.view = (id) => <button id={id}>{this.properties['Text'].value}</button>;
+        this.view = (id) => {
+
+            return <button id={id}
+                        onClick={()=>{
+                            eval('alert("test")');
+                        }}
+                    >{this.properties['Text'].value}</button>
+          
+        }
     }
 }
