@@ -49,7 +49,17 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
     refresh = () => {
         this.setState({components: this.state.components});
         var htmlOutput = ReactDOMServer.renderToString(this.state.components[0].render());
-        this.props.viewModel.createOutput(htmlOutput);
+        this.props.viewModel.createOutput(`
+            ${htmlOutput}
+            <script>
+                ${this.code}
+            </script>
+            `
+        );
+    }
+
+    componentDidMount() {
+        eval(this.code);
     }
 
     render() {
@@ -77,11 +87,6 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
             width: 100%;
             height: 100%;
             background-color: ${BaseColors.white}
-        `;
-
-        const ApplyChangesButton = styled.button`
-            margin-left:auto;
-            margin-right:auto;
         `;
 
         return <div className="container-fluid">

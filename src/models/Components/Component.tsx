@@ -8,11 +8,11 @@ export class Component implements IComponent {
     public name: string;
     public category: string;
 
-    public view:(id) => any = (id) => <></>;
+    public view: (id) => string = (id) => "";
     public style: () => React.CSSProperties = () => { return {} }
 
     public properties: { [key: string]: IProperty } = {};
-    public baseProperties: {[key: string]: IProperty};
+    public baseProperties: { [key: string]: IProperty };
 
     public getProperties = () => {
         return {
@@ -26,8 +26,8 @@ export class Component implements IComponent {
 
     private static maxCurrentUniqueId = 0;
     private static getNewUniqueId = () => `ID${Component.maxCurrentUniqueId++}`;
-    private uniqueId:string;
-    
+    private uniqueId: string;
+
     public addChild = (child: IComponent) => {
         this.children.push(child);
     }
@@ -35,11 +35,11 @@ export class Component implements IComponent {
     public render: () => any = () => {
         return <>
             <style>
-                {this.baseProperties['Style'].value}  
+                {this.baseProperties['Style'].value}
             </style>
-            <div style={this.style()}>
-                {this.view(this.baseProperties['ID'].value)}
-                {this.children.map((c: IComponent) => c.render())}
+            <div style={this.style()} id={this.view(this.baseProperties['ID'].value) == "" && this.baseProperties['ID'].value.toString()}>
+                    <span dangerouslySetInnerHTML={{ __html: this.view(this.baseProperties['ID'].value) }}/>
+                    {this.children.map((c: IComponent) => c.render())}      
             </div>
         </>
     }
@@ -51,7 +51,7 @@ export class Component implements IComponent {
         this.uniqueId = Component.getNewUniqueId();
         this.baseProperties = {
             "ID": new StringProperty("ID", this.uniqueId),
-            "Style": new StyleProperty("Style", this.uniqueId,  "")
+            "Style": new StyleProperty("Style", this.uniqueId, "")
         }
     }
 }

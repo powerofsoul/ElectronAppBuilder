@@ -12,12 +12,9 @@ export class InputComponent extends Component {
             "OnInputChange": new StringProperty("On Input Change Function", "")
         }
 
-        this.view = (id) => <input  id={id}
-                                    placeholder={this.properties['Placeholder'].value as string} 
-                                    defaultValue = {this.properties['Value'].value as string}
-                                    className="test"
-                                    onChange = {(e) => {
-                                        this.properties['Value'].edit(e.target.value);
-                        }} /> 
+        this.view = (id) => `<input id='${id}'
+                                    placeholder='${this.properties['Placeholder'].value as string}' 
+                                    defaultValue='${this.properties['Value'].value as string}'
+                        }} />`
     }
 }

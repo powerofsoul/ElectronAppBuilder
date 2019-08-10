@@ -31,11 +31,6 @@ class CheckboxPropertyRender extends React.Component<Props, {}>{
     }
 
     render() {
-        const PropertyContainer = styled.div`
-            align-items: center;
-            display:flex;
-        `;
-
         return <Checkbox color={BaseColors.blue} 
                       onChange={this.onCheck}
                       size={1}
