@@ -38,11 +38,17 @@ export class Components extends React.Component<Props, State>{
             }
         `;
         
+        var selectedComponentStyle = {
+            backgroundColor: BaseColors.green,
+            padding: "5px",
+            color: BaseColors.white
+        }
+
         return components.map((component, i) =>
             <ul>
                 <li key={i}>
                     <ContextMenuTrigger id={`${component.name}${i}`}>
-                        <ComponentSpan onClick={() => this.props.onSelectComponent(component)}>
+                        <ComponentSpan style={component == this.state.selectedComponent ? selectedComponentStyle : {}} onClick={() => this.props.onSelectComponent(component)}>
                             {component.name}
                             <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
                                 onClick={() => { this.props.onRemoveComponent(components, i) }}>
