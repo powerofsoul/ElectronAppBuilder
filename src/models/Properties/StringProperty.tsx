@@ -23,13 +23,8 @@ interface Props{
 
 class StringPropertyRender extends React.Component<Props, {}>{
     render() {
-        const PropertyContainer = styled.div`
-            margin-top: ${Space.sm};
-        `;
-
-        return <PropertyContainer key={this.props.property.name}>
-                    {this.props.property.name}: <input onChange={(event) => this.props.property.edit(event.target.value)} defaultValue={this.props.property.value.toString()}/>
-            </PropertyContainer>
+        return <input onChange={(event) => this.props.property.edit(event.target.value)} 
+                      defaultValue={this.props.property.value.toString()}/>;
     }
 }
 

@@ -50,23 +50,14 @@ class NumericPropertyRender extends React.Component<Props, {}>{
     }
 
     render() {
-        const PropertyContainer = styled.div`
-            margin-top: ${Space.sm};
-
-            span{
-                margin-left: 5px;
-            }
-        `;
-
-        return <PropertyContainer key={this.props.property.name}>
-            {this.props.property.name}: {this.props.property.value}
+        return <>
             <span onClick={this.increase}>
                 <FontAwesomeIcon icon='plus' />
             </span>
             <span onClick={this.decrease}>
                 <FontAwesomeIcon icon='minus' />
             </span>
-        </PropertyContainer>
+        </>
     }
 }
 

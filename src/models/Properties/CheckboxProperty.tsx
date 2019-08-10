@@ -36,13 +36,11 @@ class CheckboxPropertyRender extends React.Component<Props, {}>{
             display:flex;
         `;
 
-        return <PropertyContainer key={this.props.property.name}>
-            <div style={{marginTop:"9px"}}>{this.props.property.name}:</div>
-            <Checkbox color={BaseColors.blue} 
+        return <Checkbox color={BaseColors.blue} 
                       onChange={this.onCheck}
                       size={1}
                       checked={this.props.property.value}/>
-        </PropertyContainer>
+ 
     }
 }
 
