@@ -8,7 +8,7 @@ export class Component implements IComponent {
     public name: string;
     public category: string;
 
-    public view = () => <></>;
+    public view:(id) => any = (id) => <></>;
     public style: () => React.CSSProperties = () => { return {} }
 
     public properties: { [key: string]: IProperty } = {};
@@ -37,8 +37,8 @@ export class Component implements IComponent {
             <style>
                 {this.baseProperties['Style'].value}  
             </style>
-            <div id={this.baseProperties['ID'].value as string} style={this.style()}>
-                {this.view()}
+            <div style={this.style()}>
+                {this.view(this.baseProperties['ID'].value)}
                 {this.children.map((c: IComponent) => c.render())}
             </div>
         </>
@@ -47,8 +47,7 @@ export class Component implements IComponent {
     constructor(name: string, category: string = "") {
         this.name = name;
         this.category = category;
- 
-        debugger;
+
         this.uniqueId = Component.getNewUniqueId();
         this.baseProperties = {
             "ID": new StringProperty("ID", this.uniqueId),

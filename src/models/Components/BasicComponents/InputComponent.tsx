@@ -12,16 +12,12 @@ export class InputComponent extends Component {
             "OnInputChange": new StringProperty("On Input Change Function", "")
         }
 
-        this.view = () =><>
-                <input placeholder={this.properties['Placeholder'].value as string} 
+        this.view = (id) => <input  id={id}
+                                    placeholder={this.properties['Placeholder'].value as string} 
                                     defaultValue = {this.properties['Value'].value as string}
                                     className="test"
                                     onChange = {(e) => {
                                         this.properties['Value'].edit(e.target.value);
-                                    }} />
-                <script>
-                    {"document.getElementsByClassName('test')[0].addEventListener('click', ()=> {test()});"}
-                </script>
-            </>
+                        }} /> 
     }
 }

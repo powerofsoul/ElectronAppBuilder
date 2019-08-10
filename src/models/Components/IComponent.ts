@@ -4,7 +4,7 @@ export interface IComponent{
     name: string;
     category: string;
     
-    view: () => any;
+    view: (id: string) => any;
     style: () => React.CSSProperties;
 
     properties: {[key: string]: IProperty};

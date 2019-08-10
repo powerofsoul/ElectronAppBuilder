@@ -12,7 +12,7 @@ export class ImageComponent extends Component {
             "Height": new StringProperty("Height", "10px")
         }
 
-        this.view = () => <img src={this.properties['Src'].value as string} style= {{
+        this.view = (id) => <img id={id} src={this.properties['Src'].value as string} style= {{
             width: this.properties['Width'].value as string,
             height: this.properties['Height'].value as string
         }}/>
