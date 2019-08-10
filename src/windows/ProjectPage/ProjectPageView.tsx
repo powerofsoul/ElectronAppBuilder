@@ -10,6 +10,7 @@ import { Components } from './Components';
 import { IComponent } from '../../models/Components/IComponent';
 import { AppComponent } from '../../models/Components/BasicComponents/AppComponent';
 import ReactDOMServer from 'react-dom/server';
+import { Component } from './../../models/Components/Component';
 
 require("brace/mode/javascript");
 require("brace/theme/monokai");
@@ -52,17 +53,32 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         this.props.viewModel.createOutput(`
             ${htmlOutput}
             <script>
-                ${this.code}
+                ${this.generateCodeAndReferences()}
             </script>
             `
         );
+
+        this.props.viewModel.executeJs(this.generateCodeAndReferences());
     }
 
-    componentDidMount() {
-        eval(this.code);
+    getComponentReferences(c: IComponent){
+        return `
+            '${c.uniqueId}': () => document.getElementById('${c.uniqueId}') ${c.children.length > 0 ? ',' : ''}
+             ${c.children.map(child => this.getComponentReferences(child))}
+        `;
+    }
+
+    generateCodeAndReferences = () => {
+        return `code = () => { 
+            ${this.code}
+        }
+        references = { 
+            ${this.getComponentReferences(this.state.components[0])}
+        }`
     }
 
     render() {
+        this.props.viewModel.executeJs(this.generateCodeAndReferences());
         const LeftSide = styled.div`
             border-right: 1px solid ${BaseColors.white}
         `;
@@ -126,11 +142,11 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                             />
                         }   
                         {this.state.currentTab == Tabs.Emulator && <Emulator>
-                            <script dangerouslySetInnerHTML={{__html:this.code}}></script>
-                            <div>
-                                {this.state.components.map(c=> c.render())}
-                            </div>
-                        </Emulator>}
+                                <div>
+                                    {this.state.components.map(c=> c.render())}
+                                </div>
+                            </Emulator>
+                         }
                     </ActiveView>
                 </RightSide>
             </div>

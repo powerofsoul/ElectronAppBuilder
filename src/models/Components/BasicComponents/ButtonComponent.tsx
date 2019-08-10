@@ -13,7 +13,7 @@ export class ButtonComponent extends Component {
 
         this.view = (id) => {
             return `<button id='${id}'
-                        onClick='${this.properties['OnClickMethod'].value}()'
+                        onClick="window['code']()['${this.properties['OnClickMethod'].value}']()"
                     >${this.properties['Text'].value}</button>`
           
         }

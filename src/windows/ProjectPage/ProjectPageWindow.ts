@@ -44,4 +44,8 @@ export class ProjectPageWindow extends Window {
             showMessage(out);
         });
     }
+
+    executeJs(code) {
+        this.win.webContents.executeJavaScript(code);
+    }
 }

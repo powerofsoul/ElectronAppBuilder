@@ -26,7 +26,7 @@ export class Component implements IComponent {
 
     private static maxCurrentUniqueId = 0;
     private static getNewUniqueId = () => `ID${Component.maxCurrentUniqueId++}`;
-    private uniqueId: string;
+    public uniqueId: string;
 
     public addChild = (child: IComponent) => {
         this.children.push(child);
