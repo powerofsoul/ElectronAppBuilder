@@ -141,7 +141,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                                 style={{fontSize: FontSize.lg}}
                             />
                         }   
-                        {this.state.currentTab == Tabs.Emulator && <Emulator>
+                        {this.state.currentTab == Tabs.Emulator && <Emulator codeText={this.generateCodeAndReferences()}>
                                 <div>
                                     {this.state.components.map(c=> c.render())}
                                 </div>

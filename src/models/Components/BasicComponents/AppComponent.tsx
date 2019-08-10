@@ -12,11 +12,9 @@ export class AppComponent extends Component {
         }
 
         this.style = () => { return {
-            width:'100vw',
-            height: '100vh',
             position: 'absolute',
-            top: 0,
-            left: 0,
+            top: "10px",
+            left: "10px",
             overflow: "hidden"
         }}
 
