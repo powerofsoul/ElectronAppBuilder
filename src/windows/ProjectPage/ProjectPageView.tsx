@@ -8,10 +8,8 @@ import { Space } from '../../styles/Space';
 import { FontSize } from '../../styles/FontSize';
 import { Components } from './Components';
 import { IComponent } from '../../models/Components/IComponent';
-import { GridLayout } from '../../models/Components/GridLayout/GridLayout';
 import { AppComponent } from '../../models/Components/AppComponent';
 import ReactDOMServer from 'react-dom/server';
-import ReactDOM from 'react-dom';
 
 require("brace/mode/javascript");
 require("brace/theme/monokai");
@@ -50,7 +48,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
 
     refresh = () => {
         this.setState({components: this.state.components});
-        var htmlOutput = ReactDOMServer.renderToString(this.state.components[0].component());
+        var htmlOutput = ReactDOMServer.renderToString(this.state.components[0].render());
         this.props.viewModel.createOutput(htmlOutput);
     }
 
@@ -125,7 +123,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                         {this.state.currentTab == Tabs.Emulator && <Emulator>
                             <script dangerouslySetInnerHTML={{__html:this.code}}></script>
                             <div>
-                                {this.state.components.map(c=> c.component())}
+                                {this.state.components.map(c=> c.render())}
                             </div>
                         </Emulator>}
                     </ActiveView>

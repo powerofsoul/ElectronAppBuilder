@@ -1,7 +1,4 @@
-import { IComponent } from "./IComponent";
-import { IProperty } from "../IProperty";
 import { GridLayout } from "./GridLayout/GridLayout";
-import * as React from 'react';
 import { Component } from "./Component";
 import { StringProperty } from "../Properties/StringProperty";
 
@@ -11,11 +8,10 @@ export class AppComponent extends Component {
         this.children = []
 
         this.properties = {
-            "bc": new StringProperty("Background-Color", "transparent")
+            "Icon": new StringProperty("Icon Path", "./assets/icons/icon.png")
         }
 
         this.style = () => { return {
-            backgroundColor: this.properties['bc'].value as string,
             width:'100vw',
             height: '100vh',
             position: 'absolute',

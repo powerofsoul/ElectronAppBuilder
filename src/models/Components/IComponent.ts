@@ -10,7 +10,7 @@ export interface IComponent{
     properties: {[key: string]: IProperty};
     getProperties: () => {[key: string]: IProperty};
 
-    component: (args?: {[key: string]: any}) => any;
+    render: () => any;
     addChild: (child: IComponent) => void;
 
     children?: IComponent[];

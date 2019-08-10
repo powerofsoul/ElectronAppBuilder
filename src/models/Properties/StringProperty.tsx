@@ -1,7 +1,5 @@
 import { IProperty } from "../IProperty";
 import * as React from "react";
-import styled from 'styled-components';
-import { Space } from "../../styles/Space";
 import { Property } from "../Property";
 
 export class StringProperty extends Property {

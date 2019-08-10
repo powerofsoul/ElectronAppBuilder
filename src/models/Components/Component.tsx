@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IComponent, ChildrenTypeList } from "./IComponent";
 import { IProperty } from "../IProperty";
 import { StringProperty } from '../Properties/StringProperty';
+import { StyleProperty } from '../Properties/StyleProperty';
 
 export class Component implements IComponent {
     public name: string;
@@ -24,33 +25,34 @@ export class Component implements IComponent {
     public childrenTypes: ChildrenTypeList = {};
 
     private static maxCurrentUniqueId = 0;
-    private static getNewUniqueId = () => `maxUniqueId${Component.maxCurrentUniqueId++}`;
+    private static getNewUniqueId = () => `ID${Component.maxCurrentUniqueId++}`;
     private uniqueId:string;
-
+    
     public addChild = (child: IComponent) => {
         this.children.push(child);
     }
 
-    private render: (component: IComponent) => any = (component) => {
-        return <div style={component.style()}>
-            {component.view()}
-            {component.children.map(c => this.render(c))}
-        </div>
+    public render: () => any = () => {
+        return <>
+            <style>
+                {this.baseProperties['Style'].value}  
+            </style>
+            <div id={this.baseProperties['ID'].value as string} style={this.style()}>
+                {this.view()}
+                {this.children.map((c: IComponent) => c.render())}
+            </div>
+        </>
     }
-
-    component: () => any = () => {
-        return <div>
-            {this.render(this)}
-        </div>
-    };
 
     constructor(name: string, category: string = "") {
         this.name = name;
         this.category = category;
  
+        debugger;
         this.uniqueId = Component.getNewUniqueId();
         this.baseProperties = {
-            "ID": new StringProperty("ID", this.uniqueId)
+            "ID": new StringProperty("ID", this.uniqueId),
+            "Style": new StyleProperty("Style", this.uniqueId,  "")
         }
     }
 }
