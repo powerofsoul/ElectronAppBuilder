@@ -123,6 +123,7 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                             />
                         }   
                         {this.state.currentTab == Tabs.Emulator && <Emulator>
+                            <script dangerouslySetInnerHTML={{__html:this.code}}></script>
                             <div>
                                 {this.state.components.map(c=> c.component())}
                             </div>
