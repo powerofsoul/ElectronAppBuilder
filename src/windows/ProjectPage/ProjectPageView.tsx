@@ -108,25 +108,30 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         return <div className="container-fluid">
             <div className="row">
                 <LeftSide className="col-3">
-                    <Components components={this.state.components} 
-                                selectedComponent={this.state.selectedComponent}
-                                onSelectComponent={(c)=> this.setState({selectedComponent: c})}
-                                onRemoveComponent={this.removeComponent}
-                    />
-                    <ButtonsContainer>
-                        <button onClick={()=> this.refresh()}
-                                            className="btn btn-success">
-                            Apply Changes
-                        </button>
-                        <button onClick={()=> this.props.viewModel.buildApk()}
-                                            className="btn btn-danger">
-                            Build Apk
-                        </button>
-                    </ButtonsContainer>
-                    <ButtonsContainer>
-                        <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
-                        <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
-                    </ButtonsContainer>
+                    <div style={{height:"80%", overflow:"auto"}}>
+                        <Components components={this.state.components} 
+                                    onComponentsUpdate={(components) => this.setState({components})}
+                                    selectedComponent={this.state.selectedComponent}
+                                    onSelectComponent={(c)=> this.setState({selectedComponent: c})}
+                                    onRemoveComponent={this.removeComponent}
+                        />
+                    </div>
+                    <div style={{height:"20%"}}>
+                        <ButtonsContainer>
+                            <button onClick={()=> this.refresh()}
+                                                className="btn btn-success">
+                                Apply Changes
+                            </button>
+                            <button onClick={()=> this.props.viewModel.buildApk()}
+                                                className="btn btn-danger">
+                                Build Apk
+                            </button>
+                        </ButtonsContainer>
+                        <ButtonsContainer>
+                            <button onClick={() => this.changeTab(Tabs.Code)} className="btn btn-outline-secondary">Code</button>
+                            <button onClick={() => this.changeTab(Tabs.Emulator)} className="btn btn-outline-secondary">Emulator</button>
+                        </ButtonsContainer>
+                    </div>
                 </LeftSide>
                 <RightSide className="col-9">
                     <ActiveView>

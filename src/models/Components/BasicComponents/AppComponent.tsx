@@ -5,7 +5,9 @@ import { StringProperty } from "../../Properties/StringProperty";
 export class AppComponent extends Component {
     constructor(){
         super("App", "");
-        this.children = []
+        this.children = [
+            new GridLayout()
+        ]
 
         this.properties = {
             "Icon": new StringProperty("Icon Path", "./assets/icons/icon.png")

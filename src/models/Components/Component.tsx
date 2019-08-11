@@ -14,6 +14,8 @@ export class Component implements IComponent {
     public properties: { [key: string]: IProperty } = {};
     public baseProperties: { [key: string]: IProperty };
 
+    public expanded = true;
+
     public getProperties = () => {
         return {
             ...this.properties,

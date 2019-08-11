@@ -4,15 +4,19 @@ import { IComponent } from '../../models/Components/IComponent';
 import { BaseColors } from '../../styles/Colors';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Space } from '../../styles/Space';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import SortableTree from 'react-sortable-tree';
+import FileExplorerTheme from 'react-sortable-tree-theme-full-node-drag';
+
 import * as _ from "underscore";
 
-library.add(faTrash);
+library.add(faTrash, faPlus, faCheck);
 
 interface Props {
     components: IComponent[];
+    onComponentsUpdate: (components: IComponent[]) => void;
     selectedComponent: IComponent;
     onSelectComponent: (c: IComponent) => void;
     onRemoveComponent: (components: IComponent[], i: number) => void;
@@ -20,84 +24,95 @@ interface Props {
 
 interface State {
     selectedComponent: IComponent;
+    treeData: any;
 }
 
 export class Components extends React.Component<Props, State>{
-    state = {
-        selectedComponent: this.props.selectedComponent
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedComponent: this.props.selectedComponent,
+            treeData: this.props.components.map((c, i) => this.mapToTree(c, undefined, i))
+        }
     }
 
-    renderComponents = (components: IComponent[]) => {
-        const ComponentSpan = styled.span`
-            i {
-                display:none;
-            }
+    mapToTree = (c: IComponent, parent: IComponent, index: number) => {
+        const Title = styled.div`
+            display: flex;
+            align-items: center;
 
-            &:hover i{
-                display: inline-block;
+            .right-side{
+                margin-left: auto;
+                display: flex;
+
+                * {
+                    margin-right:${Space.md}
+                }
             }
         `;
-        
-        var selectedComponentStyle = {
-            backgroundColor: BaseColors.green,
-            padding: "5px",
-            color: BaseColors.white
-        }
-
-        return components.map((component, i) =>
-            <ul>
-                <li key={i}>
-                    <ContextMenuTrigger id={`${component.name}${i}`}>
-                        <ComponentSpan style={component == this.state.selectedComponent ? selectedComponentStyle : {}} onClick={() => this.props.onSelectComponent(component)}>
-                            {component.name}
-                            <i style={{ color: BaseColors.red, marginLeft: Space.sm }}
-                                onClick={() => { this.props.onRemoveComponent(components, i) }}>
-                                <FontAwesomeIcon icon="trash" />
-                            </i>
-                            <ContextMenu id={`${component.name}${i}`}>
-                                <div style={{backgroundColor: "white", width:"100px", height: "100px", zIndex:999999}}>
-                                    {_.map(component.childrenTypes, (type, key)=> {
-                                       return <button onClick={()=> component.addChild(
-                                           new type.element(...type.properties))}>{key}</button>
-                                    })}
-                                </div>
-                            </ContextMenu>
-                        </ComponentSpan>
-
-                        {component.children && this.renderComponents(component.children)}
+        return {
+            title: <Title onClick={() => this.props.onSelectComponent(c)}>
+                {c.name}
+                {this.state && this.state.selectedComponent == c && <FontAwesomeIcon style={{ color: BaseColors.green }} icon="check" />}
+                <div className="right-side">
+                    <ContextMenuTrigger id={`${c.name}`}>
+                        <FontAwesomeIcon style={{ color: BaseColors.green }} icon="plus" />
+                        <ContextMenu id={`${c.name}`}>
+                            <div style={{ backgroundColor: "white", width: "100px", height: "100px", zIndex: 999999 }}>
+                                {_.map(c.childrenTypes, (type, key) => {
+                                    return <button onClick={() => c.addChild(
+                                        new type.element(...type.properties))}>{key}</button>
+                                })}
+                            </div>
+                        </ContextMenu>
                     </ContextMenuTrigger>
+                    <span onClick={() => { this.props.onRemoveComponent(parent.children, index) }}> <FontAwesomeIcon style={{ color: BaseColors.red }} icon="trash" /></span>
+                </div>
+            </Title>,
+            children: c.children.map((sc, i) => this.mapToTree(sc, c, i)),
+            expanded: c.expanded,
+            component: c
+        }
+    }
 
-                </li>
-            </ul>)
+    updateChildren = (treeData) => {
+        let newArray = [];
+        treeData.forEach(c => {
+            const component = c.component;
+            newArray.push(component);
+            component.expanded = c.expanded;
+            component.children = this.updateChildren(c.children);
+        });
+
+        return newArray;
     }
 
     render() {
-        const ComponentsContainer = styled.div`
-            height: 40%;
-            overflow-x: hidden;
-            overflow-y: show;
-        `;
-
         const PropertyContainer = styled.div`
             margin-top: ${Space.md}
         `;
 
         const properties = this.state.selectedComponent ? this.state.selectedComponent.getProperties() : {};
-        return <>
-            <ComponentsContainer className="">
+        return <div>
+            <div style={{ height: "50%", overflow: "auto" }}>
                 <h6>Components</h6>
-                {this.renderComponents(this.props.components)}
-            </ComponentsContainer>
-            <ComponentsContainer>
+                {<SortableTree
+                    isVirtualized={true}
+                    treeData={this.state.treeData}
+                    onChange={treeData => this.props.onComponentsUpdate(this.updateChildren(treeData))}
+                />}
+            </div>
+            <div>
                 <h6>Properties</h6>
                 {this.state.selectedComponent && this.state.selectedComponent.properties &&
                     Object.keys(properties).map(
                         (key: string) => <PropertyContainer>
-                             <div>{properties[key].name}</div>
-                             {properties[key].render()}
+                            <div>{properties[key].name}</div>
+                            {properties[key].render()}
                         </PropertyContainer>
-                )}
-            </ComponentsContainer>
-        </>
+                    )}
+            </div>
+        </div>
     }
 }

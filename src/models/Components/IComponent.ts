@@ -17,6 +17,8 @@ export interface IComponent{
     childrenTypes: ChildrenTypeList;
 
     uniqueId: string;
+
+    expanded: boolean;
 }
 
 export interface ChildrenTypeList{
