@@ -3,6 +3,7 @@ import { StringProperty } from "../../../Properties/StringProperty";
 import { ImageComponent } from "../ImageComponent";
 import { InputComponent } from "../InputComponent";
 import { ButtonComponent } from "../ButtonComponent";
+import { ParagraphComponent } from "../ParagraphComponent";
 
 
 export class ColumnComponent extends Component {     
@@ -15,8 +16,9 @@ export class ColumnComponent extends Component {
 
         this.childrenTypes = {
            "New Image": {element: ImageComponent, properties: []}, 
-           "New Component": {element: InputComponent, properties: []},
-           "New Button": {element: ButtonComponent, properties: []}
+           "New Input": {element: InputComponent, properties: []},
+           "New Button": {element: ButtonComponent, properties: []},
+           "New paragraph": {element: ParagraphComponent, properties: []}
         }
     }
 }
