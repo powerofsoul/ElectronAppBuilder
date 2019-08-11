@@ -70,6 +70,7 @@ export class Components extends React.Component<Props, State>{
                     <span onClick={() => { this.props.onRemoveComponent(parent.children, index) }}> <FontAwesomeIcon style={{ color: BaseColors.red }} icon="trash" /></span>
                 </div>
             </Title>,
+            subtitle: <div style={{marginTop: "10px"}}>ID: {c.getProperties()['ID'].value}</div>,
             children: c.children.map((sc, i) => this.mapToTree(sc, c, i)),
             expanded: c.expanded,
             component: c
@@ -89,29 +90,14 @@ export class Components extends React.Component<Props, State>{
     }
 
     render() {
-        const PropertyContainer = styled.div`
-            margin-top: ${Space.md}
-        `;
-
-        const properties = this.state.selectedComponent ? this.state.selectedComponent.getProperties() : {};
         return <div>
-            <div style={{ height: "50%", overflow: "auto" }}>
+            <div style={{ overflow: "auto" }}>
                 <h6>Components</h6>
                 {<SortableTree
                     isVirtualized={true}
                     treeData={this.state.treeData}
                     onChange={treeData => this.props.onComponentsUpdate(this.updateChildren(treeData))}
                 />}
-            </div>
-            <div>
-                <h6>Properties</h6>
-                {this.state.selectedComponent && this.state.selectedComponent.properties &&
-                    Object.keys(properties).map(
-                        (key: string) => <PropertyContainer>
-                            <div>{properties[key].name}</div>
-                            {properties[key].render()}
-                        </PropertyContainer>
-                    )}
             </div>
         </div>
     }

@@ -81,11 +81,15 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
         this.props.viewModel.executeJs(this.generateCodeAndReferences());
         const LeftSide = styled.div`
             border-right: 1px solid ${BaseColors.white}
+            width: 33%;
+        `;
+
+        const MiddleSection = styled.div`
+            background-color: ${BaseColors.white}
         `;
 
         const RightSide = styled.div`
             background-color: ${BaseColors.white}
-            height:
         `;
 
         const ButtonsContainer = styled.div`
@@ -105,9 +109,15 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
             background-color: ${BaseColors.white}
         `;
 
+        const PropertyContainer = styled.div`
+            margin-top: ${Space.md}
+        `;
+
+        const properties = this.state.selectedComponent ? this.state.selectedComponent.getProperties() : {};
+
         return <div className="container-fluid">
             <div className="row">
-                <LeftSide className="col-3">
+                <LeftSide className="col-5">
                     <div style={{height:"80%", overflow:"auto"}}>
                         <Components components={this.state.components} 
                                     onComponentsUpdate={(components) => this.setState({components})}
@@ -133,7 +143,17 @@ export default class ProjectPageView extends React.Component<WindowProps, State>
                         </ButtonsContainer>
                     </div>
                 </LeftSide>
-                <RightSide className="col-9">
+                <MiddleSection className="col-3">
+                    <h6>Properties</h6>
+                    {this.state.selectedComponent && this.state.selectedComponent.properties &&
+                    Object.keys(properties).map(
+                        (key: string) => <PropertyContainer>
+                            <div>{properties[key].name}</div>
+                            {properties[key].render()}
+                        </PropertyContainer>
+                    )}
+                </MiddleSection>
+                <RightSide className="col-4">
                     <ActiveView>
                         {this.state.currentTab == Tabs.Code &&
                             <AceEditor
