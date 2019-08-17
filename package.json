@@ -23,6 +23,7 @@
     "@types/react": "^16.8.22",
     "@types/underscore": "^1.9.2",
     "electron": "^4.0.5",
+    "electron-installer-debian": "^2.0.0",
     "electron-installer-windows": "^2.0.0",
     "electron-packager": "^13.1.0",
     "grunt": "^1.0.3",
