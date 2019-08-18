@@ -59,10 +59,16 @@ export class Components extends React.Component<Props, State>{
                     <ContextMenuTrigger id={`${c.name}`}>
                         <FontAwesomeIcon style={{ color: BaseColors.green }} icon="plus" />
                         <ContextMenu id={`${c.name}`}>
-                            <div style={{ backgroundColor: "white", width: "100px", height: "100px", zIndex: 999999 }}>
+                            <div style={{ backgroundColor: "transparent",
+                                          padding: Space.md,
+                                          border:"solid 1px black",
+                                          zIndex: 999999 
+                                    }}>
                                 {_.map(c.childrenTypes, (type, key) => {
-                                    return <button onClick={() => c.addChild(
-                                        new type.element(...type.properties))}>{key}</button>
+                                    return <div style={{marginBottom: Space.md}}>
+                                        <button className='btn btn-dark' onClick={() => c.addChild(
+                                            new type.element(...type.properties))}>{key}</button>
+                                    </div>
                                 })}
                             </div>
                         </ContextMenu>
