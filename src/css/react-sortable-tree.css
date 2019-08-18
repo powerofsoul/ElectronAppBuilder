@@ -389,6 +389,7 @@
 .rst__rowLabel {
   flex: 0 1 auto;
   padding-right: 20px;
+  width:100%;
 }
 .rst__rtl.rst__rowLabel {
   padding-left: 20px;

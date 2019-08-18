@@ -47,7 +47,7 @@ export class Components extends React.Component<Props, State>{
                 display: flex;
 
                 * {
-                    margin-right:${Space.md}
+                    margin-right:${Space.sm}
                 }
             }
         `;

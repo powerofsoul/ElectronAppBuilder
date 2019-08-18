@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import { WindowProps } from '../Window';
 var nmd = require('nano-markdown');
 
-
 export default class MainPageView extends React.Component<WindowProps, {}>{
     state={
         documentation: ""
