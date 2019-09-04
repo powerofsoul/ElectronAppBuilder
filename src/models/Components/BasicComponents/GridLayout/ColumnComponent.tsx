@@ -4,6 +4,7 @@ import { ImageComponent } from "../ImageComponent";
 import { InputComponent } from "../InputComponent";
 import { ButtonComponent } from "../ButtonComponent";
 import { ParagraphComponent } from "../ParagraphComponent";
+import { GridLayout } from "./GridLayout";
 
 
 export class ColumnComponent extends Component {     
@@ -18,7 +19,8 @@ export class ColumnComponent extends Component {
            "New Image": {element: ImageComponent, properties: []}, 
            "New Input": {element: InputComponent, properties: []},
            "New Button": {element: ButtonComponent, properties: []},
-           "New paragraph": {element: ParagraphComponent, properties: []}
+           "New paragraph": {element: ParagraphComponent, properties: []},
+           "Gird Layout": {element: GridLayout, properties: []},
         }
     }
 }

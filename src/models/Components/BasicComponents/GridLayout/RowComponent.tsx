@@ -1,5 +1,6 @@
 import { ColumnComponent } from "./ColumnComponent";
 import { Component } from "../../Component";
+import { GridLayout } from "./GridLayout";
 
 export class RowComponent extends Component {
     constructor(rowCount = () => 1) {
@@ -17,7 +18,8 @@ export class RowComponent extends Component {
                 properties: [
                     () => this.children.length
                 ]
-            }
+            },
+            "Gird Layout": {element: GridLayout, properties: []},
         }
     }
 }

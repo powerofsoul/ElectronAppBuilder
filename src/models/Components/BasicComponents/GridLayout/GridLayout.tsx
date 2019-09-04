@@ -11,8 +11,8 @@ export class GridLayout extends Component {
 
         this.properties = {
             "ID":  new StringProperty('ID', ''),
-            "Width": new StringProperty('Width', '100%'),
-            "Height": new StringProperty('Height', '100%'),
+            "Width": new StringProperty('Width', '100vw'),
+            "Height": new StringProperty('Height', '100vh'),
             "Visible": new CheckboxProperty('IsVisible', false)
         }
          
