@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as androidJS from "androidjs-builder";
 const util = require('util');
 const {dialog} = require('electron');
+import { buildAPK } from "androidjs-builder/lib/buildAPK";
 
 export class ProjectPageWindow extends Window {
     project: Project;
@@ -24,25 +25,7 @@ export class ProjectPageWindow extends Window {
     }
 
     buildApk() {
-        const exec = util.promisify(require('child_process').exec);
-        const projectPath = this.project.path;
-        async function ls() {
-            const { stdout, stderr } = await exec(`c: && cd ${projectPath} && dir && androidjs b`);
-            console.log('stdout:', stdout);
-            console.log('stderr:', stderr);
-            
-            return stdout;
-        }
-
-        var showMessage = (message) => {
-            const dialogOptions = {type: 'info', buttons: ['OK'], message: message}
-
-            dialog.showMessageBox(dialogOptions, i => console.log(i))
-        };
-
-        ls().then((out)=>{
-            showMessage(out);
-        });
+        buildAPK({});
     }
 
     executeJs(code) {
